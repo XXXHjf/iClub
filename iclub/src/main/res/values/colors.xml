@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="black">#FF000000</color>
+    <color name="black_01">#FF101010</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="home_background">#FFEFEFEF</color>
+    <color name="lineOfHome">#FFBBBBBB</color>
+    <color name="Grey_bottomOf_slideshowText">#B26C6C6C</color>
+    <color name="view_home_function_background" tools:ignore="MissingDefaultResource">#FF4F4F4F</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="blue">#FF0000FF</color>
+    <color name="Morandi_blue">#FF7D8590</color>
+    <color name="theme_green">#FFC1DF95</color>
+</resources>

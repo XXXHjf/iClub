@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_green"
+    tools:context=".clubListActivity"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/home_background">
+
+        <View
+            android:id="@+id/view_clubList_topBackGround"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/res_home_green_theme_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/space_clubList_bottomOfSearch" />
+
+        <ImageView
+            android:id="@+id/iv_clubList_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="30dp"
+            android:src="@drawable/ic_back_left_top"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.04" />
+
+        <TextView
+            android:id="@+id/tv_clubList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="社团索引"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <View
+            android:id="@+id/view_clubList_Line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/lineOfHome"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_clubList" />
+
+        <Space
+            android:id="@+id/space_clubList_bottomOfLine"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:layout_constraintTop_toBottomOf="@id/view_clubList_Line" />
+
+        <View
+            android:id="@+id/view_clubList_search"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/res_searchcircle"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            app:layout_constraintTop_toBottomOf="@id/space_clubList_bottomOfLine"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_clubList_searchIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="25dp"
+            android:src="@drawable/ic_search"
+            android:layout_marginLeft="6dp"
+            app:layout_constraintLeft_toLeftOf="@id/view_clubList_search"
+            app:layout_constraintTop_toTopOf="@id/view_clubList_search"
+            app:layout_constraintBottom_toBottomOf="@id/view_clubList_search" />
+
+        <EditText
+            android:id="@+id/et_clubList_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="输入关键字"
+            android:textSize="18sp"
+            android:layout_marginLeft="3dp"
+            app:layout_constraintLeft_toRightOf="@id/iv_clubList_searchIcon"
+            app:layout_constraintTop_toTopOf="@id/view_clubList_search"
+            app:layout_constraintBottom_toBottomOf="@id/view_clubList_search" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="搜索"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:background="@drawable/res_searchcircle_button"
+            app:layout_constraintEnd_toEndOf="@id/view_clubList_search"
+            app:layout_constraintTop_toTopOf="@id/view_clubList_search"
+            app:layout_constraintBottom_toBottomOf="@id/view_clubList_search" />
+
+        <Space
+            android:id="@+id/space_clubList_bottomOfSearch"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:layout_constraintTop_toBottomOf="@id/view_clubList_search" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recv_clubList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingBottom="12dp"
+            android:clipToPadding="false"
+            android:background="@color/home_background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/space_clubList_bottomOfSearch"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
