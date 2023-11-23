@@ -12,7 +12,9 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.Manifest;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
@@ -29,6 +31,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.tbruyelle.rxpermissions3.RxPermissions;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.config.IndicatorConfig;
@@ -51,8 +54,9 @@ import util.DBUtil;
 import util.DbException;
 
 public class Home extends AppCompatActivity {
-
-
+    //如果你是在Fragment中，则把this换成getActivity()
+    private final RxPermissions rxPermissions = new RxPermissions(this);  //权限请求
+    public static boolean hasPermissions = false;  //是否拥有权限
     private Fragment_home fragment_home;
     private Fragment_find fragment_find;
     private Fragment_mine fragment_mine;
@@ -65,13 +69,26 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         Window window = this.getWindow();
-        //设置状态栏和底部导航栏为沉浸式(xml文件里设置了android:fitsSystemWindows="true"所以不会完全嵌入状态栏)
+        // 设置状态栏和底部导航栏为沉浸式(xml文件里设置了android:fitsSystemWindows="true"所以不会完全嵌入状态栏)
         WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
-        //设置顶部状态栏为透明
+        // 设置顶部状态栏为透明
         window.setStatusBarColor(Color.TRANSPARENT);
 //        window.setNavigationBarColor(Color.TRANSPARENT);      设置底部导航栏(全屏手机最底下那个黑杠杠)为透明
-        //设置顶部状态栏的图标、字体为黑色
+        // 设置顶部状态栏的图标、字体为黑色
         window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        // 权限请求
+        rxPermissions
+                .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(granted -> {
+                    if (granted) {  //申请成功
+                        showMsg("已获取相机和写权限");
+                        hasPermissions = true;
+                    } else {//申请失败
+                        showMsg("权限未开启");
+                        hasPermissions = false;
+                    }
+                });
 
 
         // 底部导航栏选项监听器           (注意setOnNavigationItemSelectedListener()方法已经被弃用)
@@ -137,5 +154,13 @@ public class Home extends AppCompatActivity {
         transaction.hide(fragment); // 隐藏指定的 Fragment
         transaction.commit();
     }
+
+    // Toast提示
+    private void showMsg(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+
+
 
 }
