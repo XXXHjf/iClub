@@ -1,5 +1,6 @@
 package com.example.icluub;
 
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -61,6 +62,7 @@ public class Home extends AppCompatActivity {
     private Fragment_find fragment_find;
     private Fragment_mine fragment_mine;
     private Fragment[] fragments;
+    private BottomMenuFragmentsManager bottomMenuFragmentsManager = new BottomMenuFragmentsManager();
 
     @SuppressLint("ResourceAsColor")
     @Override

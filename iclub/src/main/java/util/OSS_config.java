@@ -10,7 +10,7 @@ public class OSS_config {
     public static final String STS_SERVER_URL = "http://****/sts/getsts";
 
     public static final String BUCKET_NAME = "bucket-hjf";
-    public static final String OSS_ACCESS_KEY_ID = "LTAI5t8LpFuo42FoEUQ8bK5i";;
+    public static final String OSS_ACCESS_KEY_ID = "LTAI5t8LpFuo42FoEUQ8bK5i";
     public static final String OSS_ACCESS_KEY_SECRET = "jbIFKjCWmErmQVfBmzMH2E2KHTwjbf";
 
     public static final int DOWNLOAD_SUC = 1;

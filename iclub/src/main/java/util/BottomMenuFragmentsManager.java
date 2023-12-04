@@ -11,28 +11,28 @@ import com.example.icluub.R;
 
 
 public class BottomMenuFragmentsManager {
-    public void addFragment(Fragment fragment, String tag) {
+    public static void addFragment(Fragment fragment) {
         FragmentManager fragmentManager = fragment.getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.fl_fragments, fragment, tag);
+        transaction.add(R.id.fl_fragments, fragment);
         transaction.commit();
     }
 
-    public void replaceFragment(Fragment fragment, String tag) {
+    public static void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = fragment.getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.fl_fragments, fragment, tag);
+        transaction.replace(R.id.fl_fragments, fragment);
         transaction.commit();
     }
 
-    public void showFragment(Fragment fragment) {
+    public static void showFragment(Fragment fragment) {
         FragmentManager fragmentManager = fragment.getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.show(fragment);
         transaction.commit();
     }
 
-    public void hideFragment(Fragment fragment) {
+    public static void hideFragment(Fragment fragment) {
         FragmentManager fragmentManager = fragment.getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.hide(fragment);

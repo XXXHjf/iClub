@@ -24,11 +24,16 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    packagingOptions {
+        exclude("META-INF/kotlinx_coroutines_core.version")
+        exclude("META-INF/DEPENDENCIES")
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+
 
 
 
@@ -67,5 +72,12 @@ dependencies {
 
     // 时间选择器
     implementation("com.github.loper7:DateTimePicker:0.6.3")
+
+    // 引入STS SDK
+    // https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-sts
+    implementation("com.aliyun:alibabacloud-sts20150401:1.0.4")
+
+
+
 
 }

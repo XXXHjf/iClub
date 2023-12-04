@@ -22,6 +22,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,8 @@ import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import tools.BitmapUtils;
 import tools.CameraUtils;
+import tools.SPUtils;
+import util.OSSUpload;
 
 public class Fragment_mine extends Fragment implements View.OnClickListener{
 
@@ -67,19 +70,7 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
             .diskCacheStrategy(DiskCacheStrategy.NONE)  //不做磁盘缓存
             .skipMemoryCache(true);  //不做内存缓存
 
-
-
-
-
-    public static final int CHOOSE_PHOTO = 1;   //标识符----打开相册
-
-    private final ActivityResultLauncher pickImageLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            if(result.getResultCode() == RESULT_OK){
-            }
-        }
-    });
+    private static final String TAG_avatarTest = "更改头像功能调试";
 
     public Fragment_mine() {
         // Required empty public constructor
@@ -98,13 +89,11 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
         iv_mine_profile = view.findViewById(R.id.iv_mine_profile);
         iv_mine_profile.setOnClickListener(this);
 
-
-        // 获取并加载头像
-        Glide.with(this)
-                .load(R.drawable.ludiwusi)
-                .apply(RequestOptions.circleCropTransform())
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(iv_mine_profile);
+        //取出缓存
+        String imageUrl = SPUtils.getString("imageUrl",null,getContext());
+        if(imageUrl != null){
+            Glide.with(this).load(imageUrl).apply(requestOptions).into(iv_mine_profile);
+        }
 
         // Inflate the layout for this fragment
         return view;
@@ -122,6 +111,7 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
         }
     }
 
+    // 点击头像后弹出选择框的方法
     public void changeAvatar(View view) {
         // 初始化底部选择相册/相机弹窗的部件
         bottomSheetDialog = new BottomSheetDialog(getContext());
@@ -141,6 +131,7 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
         // 打开相册
         tvOpenAlbum.setOnClickListener(v -> {
             openAlbum();
+            Log.e(TAG_avatarTest, "changeAvatar:打开相册成功");
             showMsg("打开相册");
             bottomSheetDialog.cancel();
         });
@@ -177,7 +168,7 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
      * 打开相册
      */
     private void openAlbum() {
-        if (!hasPermissions) {
+        if (!hasPermissions || getActivity() == null) {
             showMsg("未获取到权限");
             return;
         }
@@ -190,17 +181,26 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
      * @param resultCode
      * @param data
      */
+    private String imagePath;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == TAKE_PHOTO) {
             // 拍照显示图片
             displayImage(outputImagePath.getAbsolutePath());
-        } else if (resultCode == SELECT_PHOTO) {
-            String imagePath = null;
+        } else if (requestCode == SELECT_PHOTO) {
+            imagePath = null;
             imagePath = CameraUtils.getImageOnKitKatPath(data, getContext());
             // 相册显示图片
             displayImage(imagePath);
+            Log.e("imagePath", ""+ imagePath);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    OSSUpload.uploadOSS(getContext(), "123.jpg", imagePath);
+                }
+            }).start();
+
         }
     }
 
@@ -209,6 +209,8 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
      */
     private void displayImage(String imagePath) {
         if (!TextUtils.isEmpty(imagePath)) {
+            // 将头像放入缓存
+            SPUtils.putString("imageUrl", imagePath, getContext());
             // 显示图片
             Glide.with(this)
                     .load(imagePath)
@@ -218,7 +220,6 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
             orc_bitmap = CameraUtils.compression(BitmapFactory.decodeFile(imagePath));
             // 转Base64
             base64Pic = BitmapUtils.bitmapToBase64(orc_bitmap);
-
         } else {
             showMsg("图片获取失败");
         }
