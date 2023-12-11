@@ -1,5 +1,11 @@
 pluginManagement {
     repositories {
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.aliyun.com/repository/releases' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
         google()
         mavenCentral()
         gradlePluginPortal()
@@ -8,17 +14,18 @@ pluginManagement {
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven { url "https://jitpack.io" }
+        maven { url 'https://maven.aliyun.com/repository/releases' }
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/central' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/repository/public' }
         google()
         mavenCentral()
-        maven {
-            url = uri("https://www.jitpack.io")
-        }
+        gradlePluginPortal()
     }
 }
-
-rootProject.name = "Test Application 01"
-include(':test01')
-include(':test02')
-include(":iclub")
-include ':wheelview'
-include ':pickerview'
+    rootProject.name = "Software Project iClub"
+    include(":iclub")
+    include ':wheelview'
+    include ':pickerview'

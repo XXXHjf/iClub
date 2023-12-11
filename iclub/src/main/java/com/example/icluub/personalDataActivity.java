@@ -1,16 +1,16 @@
 package com.example.icluub;
 
-import static java.security.AccessController.getContext;
-
-import androidx.annotation.LongDef;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -20,21 +20,19 @@ import android.widget.Toast;
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog;
 
 import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Properties;
 
+import Beans.BeanUser;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
+import tools.Transition;
 import util.DBUtil;
+import util.SPDataUtils;
 
 public class personalDataActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,6 +54,50 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_data);
 
+        // 顶部状态栏调整
+        Window window = this.getWindow();
+        WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
+        window.setStatusBarColor(Color.TRANSPARENT);
+        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+
+        initViews();
+        initPersonalInfo();
+
+//        Thread_getPersonalData thread_getPersonalData = new Thread_getPersonalData();
+//        thread_getPersonalData.start();
+    }
+
+    /**
+     * 初始化个人信息（从登陆时存储到sharedPreferences里的信息获取）
+     */
+    private void initPersonalInfo() {
+        BeanUser beanUser = SPDataUtils.getUserInfo(getApplicationContext());
+        // 获取array的college数组
+        String[] colleges = getResources().getStringArray(R.array.college);
+        // 找到用户的学院在数组中的位置
+        int positionC = getPositionForArray(beanUser.getCollege(), colleges);
+
+        // 获取array的sex数组
+        String[] sex = getResources().getStringArray(R.array.sex);
+        // 找到用户的性别在数组中的位置
+        int positionS = getPositionForArray(beanUser.getSex(), sex);
+
+        // 将登陆的用户信息填入UI界面中
+        tv_name.setText(beanUser.getUserName());
+        tv_personalData_stuID.setText(beanUser.getUserID());
+        spinner_college.setSelection(positionC);
+        et_personalData_major.setText(beanUser.getMajorClass());
+        et_nickname.setText(beanUser.getNickName());
+        spinner_sex.setSelection(positionS);
+        et_phone.setText(beanUser.getPhoneNum());
+        java.sql.Date sqlDate = beanUser.getBirthDate();
+        tv_birthday.setText(Transition.sqlDateToString(sqlDate));
+    }
+
+    /**
+     * 初始化绑定组件
+     */
+    private void initViews() {
         tv_name = findViewById(R.id.tv_name);
         tv_personalData_stuID = findViewById(R.id.tv_personalData_stuID);
         spinner_college = findViewById(R.id.spinner_college);
@@ -72,9 +114,6 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
 
         view_personalData_savingChanges = findViewById(R.id.view_personalData_savingChanges);
         view_personalData_savingChanges.setOnClickListener(this);
-
-        Thread_getPersonalData thread_getPersonalData = new Thread_getPersonalData();
-        thread_getPersonalData.start();
     }
 
     private Handler handler = new Handler(){
@@ -115,7 +154,12 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
         }
     };
 
-    // 获取array中某个选项在其中的位置
+    /**
+     * 获取array中某个选项在其中的位置
+     * @param userCollege 用户的学院信息
+     * @param collegeArray 学院数组布局
+     * @return array中item的下标
+     */
     public int getPositionForArray(String userCollege, String[] collegeArray) {
         // 将数组collegeArray转换为列表
         List<String> collegeList = Arrays.asList(collegeArray);
@@ -130,10 +174,14 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
     }
 
 
+    /**
+     * 重写onClick方法
+     * @param view
+     */
     @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View view) {
-//        设置出生日期选择框
+        // 设置出生日期选择框
         if (view.getId() == R.id.tv_birthday) {
             new CardDatePickerDialog.Builder(this)
                     .setTitle("出生日期")
@@ -166,13 +214,14 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
             Thread threads = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d(TAG, "线程创建成功");
                     Connection conn = null;
+                    BeanUser beanUser = SPDataUtils.getUserInfo(getApplicationContext());
+                    // 更新登录用户的SP文件信息
+                    SPDataUtils.updatePersonalInfo(getApplicationContext(), (String) spinner_college.getSelectedItem(), et_personalData_major.getText().toString(),
+                            et_nickname.getText().toString(), (String) spinner_sex.getSelectedItem(), et_phone.getText().toString(), tv_birthday.getText().toString());
+                    // 更新登录用户的数据库数据
                     try {
                         conn = DBUtil.getConnection();
-                        if (conn == null)
-                            Log.d(TAG, "数据库连接后为空");
-                        Log.d(TAG, "数据库连接成功");
                         String sql = "update user set college=?, majorClass=?, nickName=?, sex=?, phoneNum=?, birthDate=? "
                                 + "where userID=?";
                         java.sql.PreparedStatement pst = conn.prepareStatement(sql);
@@ -183,11 +232,9 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
                         pst.setString(5, et_phone.getText().toString());
 
                         // 将字符串日期转换为sql.Date类型
-                        Date date = convertStringToDate(tv_birthday.getText().toString());
-                        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                        java.sql.Date sqlDate = Transition.StringToSqlDate(tv_birthday.getText().toString());
                         pst.setDate(6, sqlDate);
-
-                        pst.setString(7, "32100012");
+                        pst.setString(7, beanUser.getUserID());
                         int i = pst.executeUpdate();
                         if (i == 1) {
                             runOnUiThread(new Runnable() {
@@ -199,15 +246,8 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
-                        Log.d("TAG", "数据库异常" + e.getMessage());
                     } finally {
-                        if (conn != null)
-                            try {
-                                conn.close();
-                            } catch (SQLException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
+                        DBUtil.close(conn);
                     }
                 }
             });
@@ -215,18 +255,9 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    // 字符串日期转换为Date类型
-    public Date convertStringToDate(String dateString) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            return dateFormat.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return new Date(); // 转换失败返回当前时间
-        }
-    }
-
-    //线程--读取数据库获取当前用户个人信息
+    /**
+     * 自定义线程：从数据库中获取登录用户的个人信息
+     */
     public class Thread_getPersonalData extends Thread {
         @Override
         public void run() {
@@ -260,13 +291,7 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
                 e.printStackTrace();
                 Log.d(TAG_getPrsnData, "数据库异常" + e.getMessage());
             } finally {
-                if (conn != null)
-                    try {
-                        conn.close();
-                    } catch (SQLException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
+                DBUtil.close(conn);
             }
         }
 

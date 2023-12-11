@@ -30,4 +30,13 @@ public class DBUtil {
         return java.sql.DriverManager.getConnection(jdbcUrl, dbUser, dbPwd);
     }
 
+    public static void close(Connection conn) {
+        try {
+            if (conn != null)
+                conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 访问网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 读取外部储存卡 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 读、写文件权限-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 读取外部储存卡 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 读、写文件权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- 相机权限（相机硬件为可选项）-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 相机权限（相机硬件为可选项） -->
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -23,6 +20,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestApplication01">
         <activity
+            android:name=".Home"
+            android:exported="false" />
+        <activity
+            android:name=".myJoinedClubs"
+            android:exported="false" />
+        <activity
             android:name=".clubDetailsActivity"
             android:exported="false" />
         <activity
@@ -32,7 +35,7 @@
             android:name=".clubListActivity"
             android:exported="false" />
         <activity
-            android:name=".Home"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

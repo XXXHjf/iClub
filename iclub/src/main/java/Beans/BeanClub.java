@@ -1,5 +1,8 @@
 package Beans;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class BeanClub {
     public int clubID;
     public String clubName;
@@ -67,4 +70,22 @@ public class BeanClub {
         this.logo = logo;
         this.clubDescription = clubDescription;
     }
+
+    public static BeanClub resultSetToClub(ResultSet rs) {
+        BeanClub beanClub = new BeanClub();
+        try {
+            int index = 1;
+            beanClub.setClubID(rs.getInt(index++));
+            beanClub.setClubName(rs.getString(index++));
+            beanClub.setUserID(rs.getString(index++));
+            beanClub.setGuidingUnit(rs.getString(index++));
+            beanClub.setLogo(rs.getString(index++));
+            beanClub.setClubDescription(rs.getString(index));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return beanClub;
+    }
+
+
 }

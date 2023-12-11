@@ -2,6 +2,7 @@ package homefragments;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.icluub.Home.hasPermissions;
+import static com.example.icluub.login_config.LOGIN_USER;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -42,22 +43,31 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.loper7.date_time_picker.dialog.CardDatePickerDialog;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import Beans.BeanClub;
+import Beans.BeanUser;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import tools.BitmapUtils;
 import tools.CameraUtils;
 import tools.SPUtils;
+import util.BitmapCallback;
+import util.DBUtil;
+import util.OSSDownload;
 import util.OSSUpload;
+import util.SPDataUtils;
 
 public class Fragment_mine extends Fragment implements View.OnClickListener{
 
-    private View view_mine_modifyData;
     private ImageView iv_mine_profile;
+    private TextView tv_mine_name;
+    private TextView tv_mine_stuID;
     private BottomSheetDialog bottomSheetDialog;  // 底部弹窗
     private View bottomView;  // 弹窗视图
     private File outputImagePath;  // 存储拍完照后的图片
@@ -65,7 +75,9 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
     public static final int SELECT_PHOTO = 2;  // 启动相册标识
     private String base64Pic;  // Base64
     private Bitmap orc_bitmap;  // 拍照和相册获取图片的Bitmap
-    //Glide请求图片选项配置
+    private BeanUser beanUser = null;
+
+    // Glide请求图片选项配置
     private RequestOptions requestOptions = RequestOptions.circleCropTransform()
             .diskCacheStrategy(DiskCacheStrategy.NONE)  //不做磁盘缓存
             .skipMemoryCache(true);  //不做内存缓存
@@ -73,7 +85,7 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
     private static final String TAG_avatarTest = "更改头像功能调试";
 
     public Fragment_mine() {
-        // Required empty public constructor
+        // 必须保留一个空的构造方法
     }
 
     @Override
@@ -82,21 +94,42 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
 
         View view = inflater.inflate(R.layout.fragment_mine, container, false);
 
-//        view_mine_modifyData = view.findViewById(R.id.view_mine_modifyData);
+        initView(view);
 
-        view.findViewById(R.id.view_mine_modifyData).setOnClickListener(this);
-
-        iv_mine_profile = view.findViewById(R.id.iv_mine_profile);
-        iv_mine_profile.setOnClickListener(this);
-
-        //取出缓存
-        String imageUrl = SPUtils.getString("imageUrl",null,getContext());
+        // 取出缓存
+        String imageUrl = SPUtils.getString("imageUrl",null, getContext());
         if(imageUrl != null){
-            Glide.with(this).load(imageUrl).apply(requestOptions).into(iv_mine_profile);
+            Glide.with(this)
+                    .load(imageUrl)
+                    .apply(requestOptions)
+                    .into(iv_mine_profile);
+        } else {
+            Glide.with(this)
+                    .load(beanUser.getProfileURL())
+                    .apply(RequestOptions.circleCropTransform())
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(iv_mine_profile);
         }
 
-        // Inflate the layout for this fragment
+        // 加载用户的姓名、学号
+        beanUser = SPDataUtils.getUserInfo(requireContext());
+        tv_mine_name.setText(beanUser.getUserName().toString());
+        tv_mine_stuID.setText(beanUser.getUserID().toString());
+
+        // 返回这个fragment的布局
         return view;
+    }
+
+    /**
+     * 初始化绑定组件
+     * @param view 此fragment的视图
+     */
+    private void initView(View view) {
+        view.findViewById(R.id.view_mine_modifyData).setOnClickListener(this);
+        iv_mine_profile = view.findViewById(R.id.iv_mine_profile);
+        iv_mine_profile.setOnClickListener(this);
+        tv_mine_name = view.findViewById(R.id.tv_mine_name);
+        tv_mine_stuID = view.findViewById(R.id.tv_mine_stuID);
     }
 
 
@@ -197,10 +230,28 @@ public class Fragment_mine extends Fragment implements View.OnClickListener{
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    OSSUpload.uploadOSS(getContext(), "123.jpg", imagePath);
+                    // 用当前的时间戳作为上传的照片的名字上传到OSS里，数据库对应位置存储图片的下载路径
+                    String fileName  = String.valueOf(System.currentTimeMillis()) + ".jpg";
+                    OSSUpload.uploadOSS(getContext(), "userAvatar/" + fileName, imagePath);
+
+                    // 修改登陆用户的SP文件
+                    SPDataUtils.updateAvatar(requireContext(), OSSUpload.getActCoverPrefix() + fileName);
+                    Connection conn = null;
+                    BeanUser beanUser = SPDataUtils.getUserInfo(requireContext());
+                    try {
+                        conn = DBUtil.getConnection();
+                        String sql = "update user set profileURL = ? where userID = ?";
+                        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                        pst.setString(1, OSSUpload.getActCoverPrefix() + fileName);
+                        pst.setString(2, beanUser.getUserID());
+                        pst.executeUpdate();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    } finally {
+                        DBUtil.close(conn);
+                    }
                 }
             }).start();
-
         }
     }
 

@@ -3,15 +3,14 @@ package util;
 public class OSS_config {
     // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
     public static final String OSS_ENDPOINT = "https://oss-cn-hangzhou.aliyuncs.com";
-    // 填写callback地址。
-    public static final String OSS_CALLBACK_URL = "https://oss-demo.aliyuncs.com:23450";
-    // 填写STS鉴权服务器地址。
-    // 还可以根据工程sts_local_server目录中本地鉴权服务脚本代码启动本地STS鉴权服务器。
-    public static final String STS_SERVER_URL = "http://****/sts/getsts";
-
     public static final String BUCKET_NAME = "bucket-hjf";
-    public static final String OSS_ACCESS_KEY_ID = "LTAI5t8LpFuo42FoEUQ8bK5i";
-    public static final String OSS_ACCESS_KEY_SECRET = "jbIFKjCWmErmQVfBmzMH2E2KHTwjbf";
+    // RAM用户的ACCESS信息
+    public static final String OSS_ACCESS_KEY_ID = "LTAI5tJgrjDHXonS6Rpg5bfZ";
+    public static final String OSS_ACCESS_KEY_SECRET = "DfFbTNNTvTqapENn2CLt4Mt2pSKmxe";
+    // 接口调用的STS令牌产生的临时ACCESS信息
+    public static final String TEP_ACCESS_KEY_ID = "STS.NUW2NjdQg3hic4eE2VUmJ6nEh";
+    public static final String TRP_ACCESS_KEY_SECRET = "B44ZJPhDxZhrVoMtmVotxapJYV3LLsmNEWh65yjgVaX3";
+    public static final String TEP_ACCESS_STS_TOKEN = "CAIS+QF1q6Ft5B2yfSjIr5biefTeiY5GhKqCYRLUoTIDWeJm2avuijz2IHhMfnBhAuwXsv0xnGtZ6vgYlqR8RoNifnf/UfBM449LqYV0z3ht4p7b16cNrbH4M0rxYkeJ8a2/SuH9S8ynCZXJQlvYlyh17KLnfDG5JTKMOoGIjpgVBbZ+HHPPD1x8CcxROxFppeIDKHLVLozNCBPxhXfKB0ca0WgVy0EHsPnlmZLNtUCD1QyrkLdF+L6ceMb0M5NeW75kSMqw0eBMca7M7TVd8RAi9t0t1PQeoGac4oDBWgcJuETabbDOl9JiMAhifbMmALJJt+TsakG4XS8HJe4agAEU8DDLYmO5rJwGnyvvDTNO8zue3wjAdRjSfUbzaX0IZJ9mMYidZUNKP8wSRBxZRvQ8ckVAjCwUJOH2R04neM4A13JRC191XRfuAsLNl4bkZ+37UR5V0nS29uOVtV0N+vkpr0fyvi1pZ2IkMheUStUkZnea61nPCkssLU7QbPPW3yAA";
 
     public static final int DOWNLOAD_SUC = 1;
     public static final int DOWNLOAD_Fail = 2;

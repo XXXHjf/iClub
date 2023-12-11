@@ -1,7 +1,9 @@
 package Beans;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 
 public class BeanUser {
     public String userID;
@@ -13,7 +15,7 @@ public class BeanUser {
     public String nickName;
     public String sex;
     public String phoneNum;
-    public LocalDate birthDate;
+    public Date birthDate;
     public int isPresident;
 
     public String getUserID() {
@@ -88,11 +90,11 @@ public class BeanUser {
         this.phoneNum = phoneNum;
     }
 
-    public LocalDate getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -107,7 +109,7 @@ public class BeanUser {
     public BeanUser() {
     }
 
-    public BeanUser(String userID, String userName, String password, String profileURL, String college, String majorClass, String nickName, String sex, String phoneNum, LocalDate birthDate, int isPresident) {
+    public BeanUser(String userID, String userName, String password, String profileURL, String college, String majorClass, String nickName, String sex, String phoneNum, Date birthDate, int isPresident) {
         this.userID = userID;
         this.userName = userName;
         this.password = password;
@@ -119,5 +121,26 @@ public class BeanUser {
         this.phoneNum = phoneNum;
         this.birthDate = birthDate;
         this.isPresident = isPresident;
+    }
+
+    public static BeanUser resultSetToUser(ResultSet rs) {
+        BeanUser beanUser = new BeanUser();
+        try {
+            int index = 1;
+            beanUser.setUserID(rs.getString(index++));
+            beanUser.setUserName(rs.getString(index++));
+            beanUser.setPassword(rs.getString(index++));
+            beanUser.setProfileURL(rs.getString(index++));
+            beanUser.setCollege(rs.getString(index++));
+            beanUser.setMajorClass(rs.getString(index++));
+            beanUser.setNickName(rs.getString(index++));
+            beanUser.setSex(rs.getString(index++));
+            beanUser.setPhoneNum(rs.getString(index++));
+            beanUser.setBirthDate(rs.getDate(index++));
+            beanUser.setIsPresident(rs.getInt(index));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return beanUser;
     }
 }

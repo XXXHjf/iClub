@@ -19,6 +19,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.icluub.R;
 import com.example.icluub.clubListActivity;
+import com.example.icluub.myJoinedClubs;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.config.IndicatorConfig;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 
 import bean.BannerBean_resource;
 
-public class Fragment_home extends Fragment {
+public class Fragment_home extends Fragment implements View.OnClickListener {
 
     private TextView tv_banner_title;
 
@@ -47,24 +48,32 @@ public class Fragment_home extends Fragment {
         //轮播图对应的标题
         tv_banner_title = view.findViewById(R.id.tv_banner_title);
 
+        // UI里做了但是暂时不打算实现的功能，先设置为不可见
         view.findViewById(R.id.iv_homeFunction_function01).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.tv_home_function_function01).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.iv_homeFunction_function02).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.tv_home_function_function02).setVisibility(View.INVISIBLE);
 
-        //给社团索引功能设置监听器，跳转到社团索引页面
-        view.findViewById(R.id.iv_homeFunction_clublist).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(requireContext(), clubListActivity.class);
-                startActivity(intent);
-            }
-        });
+        // 给各个功能设置监听器，跳转到对应的页面
+        view.findViewById(R.id.iv_homeFunction_clublist).setOnClickListener(this);
+        view.findViewById(R.id.iv_homeFunction_myClublist).setOnClickListener(this);
 
         initView(view);
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.iv_homeFunction_clublist) {
+            // 创建意图(第二个参数是意图的目标活动)，然后启动意图
+            Intent intent = new Intent(requireContext(), clubListActivity.class);
+            startActivity(intent);
+        } else if(view.getId() == R.id.iv_homeFunction_myClublist) {
+            Intent intent = new Intent(requireContext(), myJoinedClubs.class);
+            startActivity(intent);
+        }
     }
 
     private void initView(View view) {
@@ -124,6 +133,5 @@ public class Fragment_home extends Fragment {
         tv_banner_title = view.findViewById(R.id.tv_banner_title);
         tv_banner_title.setText(bannerBeanList.get(0).getTitle());
     }
-
 
 }

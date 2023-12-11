@@ -2,57 +2,29 @@ package com.example.icluub;
 
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.Manifest;
-import android.os.Handler;
-import android.os.Message;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.tbruyelle.rxpermissions3.RxPermissions;
-import com.youth.banner.Banner;
-import com.youth.banner.adapter.BannerImageAdapter;
-import com.youth.banner.config.IndicatorConfig;
-import com.youth.banner.holder.BannerImageHolder;
-import com.youth.banner.indicator.CircleIndicator;
-import com.youth.banner.indicator.RoundLinesIndicator;
-import com.youth.banner.listener.OnBannerListener;
-import com.youth.banner.listener.OnPageChangeListener;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import bean.BannerBean_resource;
 import homefragments.Fragment_find;
 import homefragments.Fragment_home;
 import homefragments.Fragment_mine;
 import util.BottomMenuFragmentsManager;
-import util.DBUtil;
-import util.DbException;
 
 public class Home extends AppCompatActivity {
     //如果你是在Fragment中，则把this换成getActivity()
@@ -126,7 +98,6 @@ public class Home extends AppCompatActivity {
             hideFragment(fragment);
         }
         showFragment(fragments[0]);
-
     }
 
     private void addFragment(Fragment fragment) {

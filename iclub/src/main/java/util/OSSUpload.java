@@ -10,17 +10,17 @@ import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.callback.OSSProgressCallback;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 
 public class OSSUpload {
     public static void uploadOSS(Context context, String fileName, String filePath) {
-
+        // 使用明文Access Key ID和Access Key Secret创建一个凭证提供者
         OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(OSS_config.OSS_ACCESS_KEY_ID, OSS_config.OSS_ACCESS_KEY_SECRET);
-        // 创建OSSClient实例。
+        // 创建OSSClient实例
         OSSClient oss = new OSSClient(context, OSS_config.OSS_ENDPOINT, credentialProvider);
-
         // 构造上传请求。
         PutObjectRequest put = new PutObjectRequest(OSS_config.BUCKET_NAME, fileName, filePath);
 
@@ -56,7 +56,18 @@ public class OSSUpload {
                 }
             }
         });
-        // task.cancel(); // 可以取消任务。
          task.waitUntilFinished(); // 等待上传完成。
+    }
+
+    public static String getUserAvatarPrefix() {
+        return "https://bucket-hjf.oss-cn-hangzhou.aliyuncs.com/userAvatar/";
+    }
+
+    public static String getClubAvatarPrefix() {
+        return "https://bucket-hjf.oss-cn-hangzhou.aliyuncs.com/clubAvatar/";
+    }
+
+    public static String getActCoverPrefix() {
+        return "https://bucket-hjf.oss-cn-hangzhou.aliyuncs.com/actCover/";
     }
 }

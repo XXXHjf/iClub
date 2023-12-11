@@ -27,6 +27,8 @@ android {
     packagingOptions {
         exclude("META-INF/kotlinx_coroutines_core.version")
         exclude("META-INF/DEPENDENCIES")
+        exclude("mozilla/public-suffix-list.txt")
+        exclude("project.properties")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -62,6 +64,12 @@ dependencies {
 
     // 阿里云OSS的依赖项
     implementation("com.aliyun.dpa:oss-android-sdk:2.9.13")
+    // 阿里云core核心库
+    implementation("com.aliyun:aliyun-java-sdk-core:4.5.18")
+    implementation("com.aliyun:aliyun-java-sdk-sts:3.1.2")
+    // 引入STS SDK
+    // https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-sts
+    implementation("com.aliyun:alibabacloud-sts20150401:1.0.4")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -73,9 +81,10 @@ dependencies {
     // 时间选择器
     implementation("com.github.loper7:DateTimePicker:0.6.3")
 
-    // 引入STS SDK
-    // https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-sts
-    implementation("com.aliyun:alibabacloud-sts20150401:1.0.4")
+    // 加载动画的依赖(https://github.com/baitutang1221/AVLoadingIndicatorView)
+    implementation("com.wang.avi:library:2.1.3")
+
+
 
 
 
