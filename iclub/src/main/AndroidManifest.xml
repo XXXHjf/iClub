@@ -20,10 +20,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TestApplication01">
         <activity
-            android:name=".Home"
+            android:name=".createActActivity"
             android:exported="false" />
         <activity
-            android:name=".myJoinedClubs"
+            android:name=".clubManageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".actMineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".actDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".actCenterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".homeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".clubMineActivity"
             android:exported="false" />
         <activity
             android:name=".clubDetailsActivity"
@@ -35,7 +50,7 @@
             android:name=".clubListActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".loginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

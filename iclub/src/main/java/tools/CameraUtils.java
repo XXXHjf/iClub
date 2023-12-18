@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 
 import java.io.ByteArrayInputStream;
@@ -97,6 +98,28 @@ public class CameraUtils {
         }
         return imagePath;
     }
+
+    /**
+     * 获取图片的类型
+     * @param imagePath  图片的实际路径
+     * @return  图片类型的字符串：jpg、png等等
+     */
+    public static String getImageType(String imagePath) {
+        if (imagePath != null) {
+            String extension = MimeTypeMap.getFileExtensionFromUrl(imagePath);
+            if (extension != null) {
+                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+                // 提取斜杠后的部分
+                if (mimeType != null && mimeType.contains("/")) {
+                    int index = mimeType.lastIndexOf('/');
+                    return mimeType.substring(index + 1).toLowerCase();
+                }
+            }
+        }
+        return null;
+    }
+
+
 
     /**
      * 通过uri和selection来获取真实的图片路径,从相册获取图片时要用

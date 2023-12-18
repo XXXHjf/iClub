@@ -14,14 +14,13 @@ import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.GetObjectRequest;
 import com.alibaba.sdk.android.oss.model.GetObjectResult;
-import com.google.android.material.tabs.TabLayout;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 
 public class OSSDownload {
-    private static String TAG = "OSS下载文件调试";
+    private static final String TAG = "OSS下载文件调试";
+
     public static void downloadOSS(Context context, String fileName, BitmapCallback callback) {
         OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(OSS_config.TEP_ACCESS_KEY_ID, OSS_config.TRP_ACCESS_KEY_SECRET, OSS_config.TEP_ACCESS_STS_TOKEN);
         // 创建OSSClient实例。

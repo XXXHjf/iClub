@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="homefragments.Fragment_mine"
+    tools:context="fragments.home.Fragment_mine"
     android:background="@color/home_background">
 
     <!-- TODO: Update blank fragment layout -->
@@ -28,11 +28,11 @@
             android:layout_height="85dp"
             android:scaleType="centerCrop"
             android:src="@drawable/res_circle"
+            app:layout_constraintBottom_toBottomOf="@id/view_profile"
             app:layout_constraintLeft_toLeftOf="@id/view_profile"
             app:layout_constraintRight_toRightOf="@id/view_profile"
             app:layout_constraintTop_toTopOf="@id/view_profile"
-            app:layout_constraintBottom_toBottomOf="@id/view_profile"
-            app:layout_constraintVertical_bias="0.15"/>
+            app:layout_constraintVertical_bias="0.151" />
 
         <TextView
             android:id="@+id/tv_mine_name"

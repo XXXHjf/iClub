@@ -1,25 +1,24 @@
-package homefragments;
+package fragments.home;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.icluub.R;
+import com.example.icluub.actCenterActivity;
+import com.example.icluub.actMineActivity;
 import com.example.icluub.clubListActivity;
-import com.example.icluub.myJoinedClubs;
+import com.example.icluub.clubManageActivity;
+import com.example.icluub.clubMineActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.config.IndicatorConfig;
@@ -29,11 +28,14 @@ import com.youth.banner.listener.OnPageChangeListener;
 
 import java.util.ArrayList;
 
+import Beans.BeanUser;
 import bean.BannerBean_resource;
+import util.SPDataUtils;
 
 public class Fragment_home extends Fragment implements View.OnClickListener {
 
     private TextView tv_banner_title;
+    private int isPresident = 0;
 
     public Fragment_home() {
         // Required empty public constructor
@@ -54,24 +56,47 @@ public class Fragment_home extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.iv_homeFunction_function02).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.tv_home_function_function02).setVisibility(View.INVISIBLE);
 
-        // 给各个功能设置监听器，跳转到对应的页面
-        view.findViewById(R.id.iv_homeFunction_clublist).setOnClickListener(this);
-        view.findViewById(R.id.iv_homeFunction_myClublist).setOnClickListener(this);
-
         initView(view);
+
+        BeanUser beanUser = SPDataUtils.getUserInfo(requireContext());
+        isPresident = beanUser.getIsPresident();
+        if (isPresident == 0) {
+            view.findViewById(R.id.iv_homeFunction_clubManagement).setVisibility(View.INVISIBLE);
+            view.findViewById(R.id.tv_home_function_clubManagement).setVisibility(View.INVISIBLE);
+        }
 
         // Inflate the layout for this fragment
         return view;
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        View view = requireView();
+        view.findViewById(R.id.iv_homeFunction_clubList).setOnClickListener(this);
+        view.findViewById(R.id.iv_homeFunction_myclubList).setOnClickListener(this);
+        view.findViewById(R.id.iv_homeFunction_activities).setOnClickListener(this);
+        view.findViewById(R.id.iv_homeFunction_myActivities).setOnClickListener(this);
+        view.findViewById(R.id.iv_homeFunction_clubManagement).setOnClickListener(this);
+    }
+
+    @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.iv_homeFunction_clublist) {
+        if (view.getId() == R.id.iv_homeFunction_clubList) {
             // 创建意图(第二个参数是意图的目标活动)，然后启动意图
             Intent intent = new Intent(requireContext(), clubListActivity.class);
             startActivity(intent);
-        } else if(view.getId() == R.id.iv_homeFunction_myClublist) {
-            Intent intent = new Intent(requireContext(), myJoinedClubs.class);
+        } else if (view.getId() == R.id.iv_homeFunction_myclubList) {
+            Intent intent = new Intent(requireContext(), clubMineActivity.class);
+            startActivity(intent);
+        } else if (view.getId() == R.id.iv_homeFunction_activities) {
+            Intent intent = new Intent(requireContext(), actCenterActivity.class);
+            startActivity(intent);
+        } else if (view.getId() == R.id.iv_homeFunction_myActivities) {
+            Intent intent = new Intent(requireContext(), actMineActivity.class);
+            startActivity(intent);
+        } else if (view.getId() == R.id.iv_homeFunction_clubManagement) {
+            Intent intent = new Intent(requireContext(), clubManageActivity.class);
             startActivity(intent);
         }
     }

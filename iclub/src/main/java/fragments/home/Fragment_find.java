@@ -1,4 +1,4 @@
-package homefragments;
+package fragments.home;
 
 import android.os.Bundle;
 

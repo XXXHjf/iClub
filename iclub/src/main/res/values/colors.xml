@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <!--    纯黑色-->
     <color name="black">#FF000000</color>
-    <color name="black_01">#FF101010</color>
-<!--    纯白色-->
+    <!--    纯白色-->
     <color name="white">#FFFFFFFF</color>
+    <color name="black_01">#FF101010</color>
     <color name="home_background">#FFEFEFEF</color>
-    <color name="lineOfHome">#FFBBBBBB</color>
-<!--    主页轮播图下方的字体的透明灰色背景-->
+    <!--    分隔小短线的颜色-->
+    <color name="lineColor_grey">#D9BBBBBB</color>
+    <!--    主页轮播图下方的字体的透明灰色背景-->
     <color name="Grey_bottomOf_slideshowText">#B26C6C6C</color>
-<!--    主页按钮背景的灰色-->
-    <color name="view_home_function_background" tools:ignore="MissingDefaultResource">#FF4F4F4F</color>
+    <!--    主页按钮背景的灰色-->
+    <color name="view_home_function_background">#FF4F4F4F</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="blue">#FF0000FF</color>
     <color name="Morandi_blue">#FF7D8590</color>
-<!--    主题绿色-->
+    <!--    主题绿色-->
     <color name="theme_green">#FFC1DF95</color>
-<!--    login页面账号密码icon的深绿色-->
+    <!--    login页面账号密码icon的深绿色-->
     <color name="iconColor_account">#B3567722</color>
-<!--    login页面输入账号、密码的提示词的颜色-->
+    <!--    login页面输入账号、密码的提示词的颜色-->
     <color name="textColorHint_login">#888888</color>
+    <!--    活动中心信息;活动详情业信息字色-->
+    <color name="textColor_actInfo">#FF4F4F4F</color>
+    <!--    社团管理界面，切换选中时的颜色-->
+    <color name="textColor_chosen">#FF7FAE37</color>
 </resources>

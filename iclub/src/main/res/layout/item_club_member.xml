@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView_item_clubMember"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
+
+        <View
+            android:id="@+id/view_clubMember_background"
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_clubMember_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/res_circle"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintHeight_percent="0.8"
+            app:layout_constraintTop_toTopOf="@id/view_clubMember_background"
+            app:layout_constraintBottom_toBottomOf="@id/view_clubMember_background"
+            app:layout_constraintLeft_toLeftOf="@id/view_clubMember_background" />
+
+        <TextView
+            android:id="@+id/tv_clubMember_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:text="胡纪福"
+            android:textStyle="bold"
+            android:layout_marginLeft="12dp"
+            android:paddingTop="3dp"
+            app:layout_constraintLeft_toRightOf="@id/iv_clubMember_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_clubMember_profile"
+            app:layout_constraintBottom_toTopOf="@id/tv_clubMember_roleName" />
+
+        <TextView
+            android:id="@+id/tv_clubMember_roleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="社员"
+            android:paddingBottom="3dp"
+            app:layout_constraintLeft_toLeftOf="@id/tv_clubMember_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_clubMember_name"
+            app:layout_constraintBottom_toBottomOf="@id/iv_clubMember_profile" />
+
+        <TextView
+            android:id="@+id/tv_clubMember_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="我"
+            android:visibility="invisible"
+            android:layout_marginRight="20dp"
+            app:layout_constraintRight_toRightOf="@id/view_clubMember_background"
+            app:layout_constraintTop_toTopOf="@id/iv_clubMember_profile"
+            app:layout_constraintBottom_toBottomOf="@id/iv_clubMember_profile" />
+
+        <View
+            android:id="@+id/line_top"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:visibility="invisible"
+            android:background="@color/lineColor_grey"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/view_clubMember_background"/>
+
+        <View
+            android:id="@+id/line_bottom"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/lineColor_grey"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/view_clubMember_background"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

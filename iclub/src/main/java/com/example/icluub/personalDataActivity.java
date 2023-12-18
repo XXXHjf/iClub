@@ -30,7 +30,9 @@ import java.util.Locale;
 import Beans.BeanUser;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
-import tools.Transition;
+import tools.OperationPromptTool;
+import tools.StatusTool;
+import tools.TransitionTool;
 import util.DBUtil;
 import util.SPDataUtils;
 
@@ -54,17 +56,23 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_data);
 
-        // 顶部状态栏调整
-        Window window = this.getWindow();
-        WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
-        window.setStatusBarColor(Color.TRANSPARENT);
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
+        // 设置状态栏
+        StatusTool.setStatusBar(this.getWindow());
         initViews();
-        initPersonalInfo();
+    }
 
-//        Thread_getPersonalData thread_getPersonalData = new Thread_getPersonalData();
-//        thread_getPersonalData.start();
+    @Override
+    protected void onStart() {
+        super.onStart();
+        initPersonalInfo();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tv_birthday.setOnClickListener(this);
+        iv_personalData_back.setOnClickListener(this);
+        view_personalData_savingChanges.setOnClickListener(this);
     }
 
     /**
@@ -91,7 +99,7 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
         spinner_sex.setSelection(positionS);
         et_phone.setText(beanUser.getPhoneNum());
         java.sql.Date sqlDate = beanUser.getBirthDate();
-        tv_birthday.setText(Transition.sqlDateToString(sqlDate));
+        tv_birthday.setText(TransitionTool.sqlDateToString(sqlDate));
     }
 
     /**
@@ -106,14 +114,8 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
         spinner_sex = findViewById(R.id.spinner_sex);
         et_phone = findViewById(R.id.et_phone);
         tv_birthday = findViewById(R.id.tv_birthday);
-
-        tv_birthday.setOnClickListener(this);
-
         iv_personalData_back = findViewById(R.id.iv_personalData_back);
-        iv_personalData_back.setOnClickListener(this);
-
         view_personalData_savingChanges = findViewById(R.id.view_personalData_savingChanges);
-        view_personalData_savingChanges.setOnClickListener(this);
     }
 
     private Handler handler = new Handler(){
@@ -232,7 +234,7 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
                         pst.setString(5, et_phone.getText().toString());
 
                         // 将字符串日期转换为sql.Date类型
-                        java.sql.Date sqlDate = Transition.StringToSqlDate(tv_birthday.getText().toString());
+                        java.sql.Date sqlDate = TransitionTool.StringToSqlDate(tv_birthday.getText().toString());
                         pst.setDate(6, sqlDate);
                         pst.setString(7, beanUser.getUserID());
                         int i = pst.executeUpdate();
@@ -240,7 +242,7 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();
+                                    OperationPromptTool.showMsg(personalDataActivity.this, "保存成功！");
                                 }
                             });
                         }
@@ -254,52 +256,5 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
             new Thread(threads).start();
         }
     }
-
-    /**
-     * 自定义线程：从数据库中获取登录用户的个人信息
-     */
-    public class Thread_getPersonalData extends Thread {
-        @Override
-        public void run() {
-            Log.d(TAG_getPrsnData, "线程创建成功");
-            Connection conn = null;
-            try {
-                conn = DBUtil.getConnection();
-                if (conn == null)
-                    Log.d(TAG_getPrsnData, "数据库连接后为空");
-                Log.d(TAG_getPrsnData, "数据库连接成功");
-                String sql = "select * from user where userID = '" + "32100012" + "'";
-                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-                java.sql.ResultSet rs = pst.executeQuery();
-                if(rs.next()) {
-                    Message msg = new Message();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("tv_personalData_userID", rs.getString(1));
-                    bundle.putString("tv_personalData_userName", rs.getString(2));
-                    bundle.putString("spinner_personalData_college", rs.getString(5));
-                    bundle.putString("et_personalData_major", rs.getString(6));
-                    bundle.putString("et_personalData_nickName", rs.getString(7));
-                    bundle.putString("spinner_personalData_sex", rs.getString(8));
-                    bundle.putString("et_personalData_phone", rs.getString(9));
-                    bundle.putString("tv_personalData_birthDate", rs.getString(10));
-
-                    msg.setData(bundle);
-                    msg.what = 2;
-                    handler.sendMessage(msg);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                Log.d(TAG_getPrsnData, "数据库异常" + e.getMessage());
-            } finally {
-                DBUtil.close(conn);
-            }
-        }
-
-
-    }
-
-
-
-
 }
 

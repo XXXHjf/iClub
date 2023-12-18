@@ -1,17 +1,13 @@
 package com.example.icluub;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,12 +16,12 @@ import android.widget.ImageView;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import Beans.BeanClub;
 import Beans.BeanUser;
+import tools.StatusTool;
 import util.DBUtil;
 import util.SPDataUtils;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class loginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText ev_login_account;
     private EditText ev_login_password;
     private ImageView iv_login_eyeSelector;
@@ -34,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private boolean autoLoginFlag = false; //自动登录标志
     private CheckBox cb_remember_pwd;
     private boolean rmbPwdFlag = false;  //记住密码标志
-
     private Button button_login;
     private String userID;
     private String Pwd;
@@ -44,17 +39,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Window window = this.getWindow();
-        // 设置状态栏和底部导航栏为沉浸式(xml文件里设置了android:fitsSystemWindows="true"所以不会完全嵌入状态栏)
-        WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
-        // 设置顶部状态栏为透明
-        window.setStatusBarColor(Color.TRANSPARENT);
-        // 设置顶部状态栏的图标、字体为黑色
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
+        // 设置状态栏
+        StatusTool.setStatusBar(this.getWindow());
         // 初始化控件
         initViews();
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
         SharedPreferences sp = getSharedPreferences("myData", MODE_PRIVATE);
         if (sp != null) {
             String userAccount = sp.getString("userID", "");
@@ -81,8 +74,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         cb_auto_login = findViewById(R.id.cb_auto_login);
         cb_remember_pwd = findViewById(R.id.cb_remember_pwd);
         button_login = findViewById(R.id.button_login);
-        button_login.setOnClickListener(this);
         iv_login_eyeSelector = findViewById(R.id.iv_login_eyeSelector);
+        button_login.setOnClickListener(this);
         iv_login_eyeSelector.setOnClickListener(this);
     }
 
@@ -111,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             beanUser = BeanUser.resultSetToUser(rs);
                             SPDataUtils.saveUserLoginInfo(getApplicationContext(), beanUser);
                             SPDataUtils.updateRmb_Auto(getApplicationContext(), cb_remember_pwd.isChecked(), cb_auto_login.isChecked());
-                            Intent intent = new Intent(LoginActivity.this, Home.class);
+                            Intent intent = new Intent(loginActivity.this, homeActivity.class);
                             // 清除任务栈并创建一个新的任务栈
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);

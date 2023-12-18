@@ -2,11 +2,12 @@ package tools;
 
 import android.content.Context;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 
-public class Transition {
+public class TransitionTool {
 
     //根据手机的分辨率从dp单位转成为px单位
     public static int dipTopx (Context context, float dpValue) {
@@ -49,5 +50,38 @@ public class Transition {
         }
         java.sql.Date sqlDate = new Date(utilDate.getTime());
         return sqlDate;
+    }
+
+    /**
+     * 将TimeStamp时间转换为yyyy-MM-dd HH:mm格式的字符串
+     * @param timestamp  Timestamp时间
+     * @return  字符串时间
+     */
+    public static String TimestampToString(Timestamp timestamp) {
+        if (timestamp == null) {
+            return null;
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return dateFormat.format(timestamp);
+    }
+
+    /**
+     * yyyy-MM-dd HH:mm格式的字符串转换为Timestamp
+     * @param string  yyyy-MM-dd HH:mm格式的字符串
+     * @return  Timestamp类型的时间
+     */
+    public static Timestamp StringToTimestamp(String string) {
+        if (string == null || string.isEmpty()) {
+            return null;
+        }
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            java.util.Date parsedDate = dateFormat.parse(string);
+            return new Timestamp(parsedDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

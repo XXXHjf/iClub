@@ -2,25 +2,15 @@ package com.example.icluub;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.WindowCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -32,13 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Beans.BeanClub;
-import util.BitmapCallback;
+import tools.StatusTool;
+import RecyclerViewHolder.ClubViewHolder;
 import util.DBUtil;
-import util.OSSDownload;
 
 public class clubListActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static String TAG_readClubTable = "读取club表";
     private ImageView iv_clubList_back;
     private RecyclerView recv_clubList;
     private ClubListAdapter clubListAdapter;
@@ -49,54 +38,45 @@ public class clubListActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_list);
 
-        Window window = this.getWindow();
-        //设置状态栏和底部导航栏为沉浸式(xml文件里设置了android:fitsSystemWindows="true"所以不会完全嵌入状态栏)
-        WindowCompat.setDecorFitsSystemWindows(this.getWindow(), false);
-        //设置顶部状态栏为透明
-        window.setStatusBarColor(Color.TRANSPARENT);
-        //设置顶部状态栏的图标、字体为黑色
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        // 设置状态栏
+        StatusTool.setStatusBar(this.getWindow());
 
-        iv_clubList_back = findViewById(R.id.iv_clubList_back);
+        initViews();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        new Thread_getSQL_clubList().start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         iv_clubList_back.setOnClickListener(this);
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        clubList = new ArrayList<>();
+    }
+
+    /**
+     * 初始化组件
+     */
+    private void initViews() {
+        iv_clubList_back = findViewById(R.id.iv_clubList_back);
         recv_clubList = findViewById(R.id.recv_clubList);
-        // 新线程———读取数据库里的社团信息并存入clubList中
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Connection conn = null;
-                try {
-                    conn = DBUtil.getConnection();
-                    String sql = "select * from club";
-                    java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-                    java.sql.ResultSet rs = pst.executeQuery();
-                    while (rs.next()) {
-                        BeanClub beanClub = BeanClub.resultSetToClub(rs);
-                        clubList.add(beanClub);
-                    }
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // 通知适配器数据集已更改
-                            clubListAdapter.notifyDataSetChanged();
-                        }
-                    });
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                } finally {
-                    DBUtil.close(conn);
-                }
-            }
-        }).start();
-
         clubListAdapter = new ClubListAdapter();
-        LinearLayoutManager layoutManager = new LinearLayoutManager(clubListActivity.this);
-        recv_clubList.setLayoutManager(layoutManager);
+        recv_clubList.setLayoutManager(new LinearLayoutManager(this));
         recv_clubList.setAdapter(clubListAdapter);
     }
 
-
+    /**
+     * 重写onClick方法
+     * @param view  视图
+     */
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.iv_clubList_back) {
@@ -104,24 +84,26 @@ public class clubListActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private class ClubListAdapter extends RecyclerView.Adapter<MyViewHolder> {
+    /**
+     * 自定义社团列表的适配器
+     */
+    private class ClubListAdapter extends RecyclerView.Adapter<ClubViewHolder> {
         @NonNull
         @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = View.inflate(clubListActivity.this, R.layout.item_club_list, null);
-            MyViewHolder myViewHolder = new MyViewHolder(view);
-            return myViewHolder;
+        public ClubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(clubListActivity.this).inflate(R.layout.item_club_list, parent, false);
+            ClubViewHolder clubViewHolder = new ClubViewHolder(view);
+            return clubViewHolder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull ClubViewHolder holder, int position) {
             final BeanClub beanClub_onBindViewHolder = clubList.get(position);
 
             holder.tv_clubName.setText(beanClub_onBindViewHolder.getClubName());
             holder.tv_clubInfo.setText(beanClub_onBindViewHolder.getClubDescription());
-            Glide.with(holder.iv_icon)
+            Glide.with(getApplicationContext())
                     .load(beanClub_onBindViewHolder.getLogo())
-//                    .placeholder(R.drawable.ludiwusi) // 设置占位图
                     .apply(RequestOptions.circleCropTransform())
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .into(holder.iv_icon);
@@ -144,20 +126,31 @@ public class clubListActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView iv_icon;
-        TextView tv_clubName;
-        TextView tv_clubInfo;
-        ConstraintLayout root_item;
-
-        public MyViewHolder(@NonNull View itemView) {
-            super(itemView);
-            iv_icon = itemView.findViewById(R.id.iv_clubList_icon);
-            tv_clubName = itemView.findViewById(R.id.tv_clubList_clubName);
-            tv_clubInfo = itemView.findViewById(R.id.tv_clubList_clubInfo);
-            root_item = itemView.findViewById(R.id.rootView_itemClubList);
+    private class Thread_getSQL_clubList extends Thread {
+        @Override
+        public void run() {
+            Connection conn = null;
+            try {
+                conn = DBUtil.getConnection();
+                String sql = "select * from club";
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    BeanClub beanClub = BeanClub.resultSetToClub(rs);
+                    clubList.add(beanClub);
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 通知适配器数据集已更改
+                        clubListAdapter.notifyDataSetChanged();
+                    }
+                });
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                DBUtil.close(conn);
+            }
         }
     }
-
-
 }

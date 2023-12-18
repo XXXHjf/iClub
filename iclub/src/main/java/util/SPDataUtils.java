@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import Beans.BeanUser;
-import tools.Transition;
+import tools.TransitionTool;
 
 /**
  * 使用SharedPreferences实现数据的存取工具类
@@ -30,7 +30,7 @@ public class SPDataUtils {
         editor.putString("nickName", beanUser.getNickName());
         editor.putString("sex", beanUser.getSex());
         editor.putString("phoneNum", beanUser.getPhoneNum());
-        String StrBirthDate = Transition.sqlDateToString(beanUser.getBirthDate());
+        String StrBirthDate = TransitionTool.sqlDateToString(beanUser.getBirthDate());
         editor.putString("birthDate", StrBirthDate);
         editor.putInt("isPresident", beanUser.getIsPresident());
         editor.apply();
@@ -55,7 +55,7 @@ public class SPDataUtils {
         String sex = sp.getString("sex", null);
         String phoneNum = sp.getString("phoneNum", null);
         String str_birthDate = sp.getString("birthDate", null);
-        java.sql.Date sqlDate_birthDate= Transition.StringToSqlDate(str_birthDate);
+        java.sql.Date sqlDate_birthDate= TransitionTool.StringToSqlDate(str_birthDate);
         int isPresident = sp.getInt("isPresident", 0);
 
         resultBean.setUserID(userID);

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="homefragments.Fragment_home">
+    tools:context="fragments.home.Fragment_home">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -127,7 +127,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_home_function" />
 
         <ImageView
-            android:id="@+id/iv_homeFunction_clublist"
+            android:id="@+id/iv_homeFunction_clubList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -138,16 +138,16 @@
             app:layout_constraintLeft_toLeftOf="@id/view_home_function_background"
             app:layout_constraintRight_toLeftOf="@id/iv_homeFunction_activities"/>
         <TextView
-            android:id="@+id/tv_home_function_clublist"
+            android:id="@+id/tv_home_function_clubList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="社团索引"
             android:textColor="@color/black"
             android:textSize="13sp"
             android:layout_marginTop="2dp"
-            app:layout_constraintLeft_toLeftOf="@id/iv_homeFunction_clublist"
-            app:layout_constraintRight_toRightOf="@id/iv_homeFunction_clublist"
-            app:layout_constraintTop_toBottomOf="@id/iv_homeFunction_clublist" />
+            app:layout_constraintLeft_toLeftOf="@id/iv_homeFunction_clubList"
+            app:layout_constraintRight_toRightOf="@id/iv_homeFunction_clubList"
+            app:layout_constraintTop_toBottomOf="@id/iv_homeFunction_clubList" />
 
         <ImageView
             android:id="@+id/iv_homeFunction_activities"
@@ -158,7 +158,7 @@
             android:maxHeight="50dp"
             android:src="@drawable/layerlist_ic_home_activities"
             app:layout_constraintTop_toBottomOf="@id/space_bottomOf_textView_function"
-            app:layout_constraintLeft_toRightOf="@id/iv_homeFunction_clublist"
+            app:layout_constraintLeft_toRightOf="@id/iv_homeFunction_clubList"
             app:layout_constraintRight_toLeftOf="@id/iv_homeFunction_myclubs"/>
         <TextView
             android:id="@+id/tv_home_function_activities"
@@ -242,7 +242,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_home_management" />
 
         <ImageView
-            android:id="@+id/iv_homeFunction_myClublist"
+            android:id="@+id/iv_homeFunction_myclubList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -253,16 +253,16 @@
             app:layout_constraintLeft_toLeftOf="@id/view_home_function_background"
             app:layout_constraintRight_toLeftOf="@id/iv_homeFunction_myActivities"/>
         <TextView
-            android:id="@+id/tv_home_function_myClublist"
+            android:id="@+id/tv_home_function_myclubList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的社团"
             android:textColor="@color/black"
             android:textSize="13sp"
             android:layout_marginTop="2dp"
-            app:layout_constraintLeft_toLeftOf="@id/iv_homeFunction_myClublist"
-            app:layout_constraintRight_toRightOf="@id/iv_homeFunction_myClublist"
-            app:layout_constraintTop_toBottomOf="@id/iv_homeFunction_myClublist" />
+            app:layout_constraintLeft_toLeftOf="@id/iv_homeFunction_myclubList"
+            app:layout_constraintRight_toRightOf="@id/iv_homeFunction_myclubList"
+            app:layout_constraintTop_toBottomOf="@id/iv_homeFunction_myclubList" />
 
         <ImageView
             android:id="@+id/iv_homeFunction_myActivities"
@@ -273,7 +273,7 @@
             android:maxHeight="50dp"
             android:src="@drawable/layerlist_ic_home_myactivities"
             app:layout_constraintTop_toBottomOf="@id/space_bottomOf_textView_management"
-            app:layout_constraintLeft_toRightOf="@id/iv_homeFunction_myClublist"
+            app:layout_constraintLeft_toRightOf="@id/iv_homeFunction_myclubList"
             app:layout_constraintRight_toLeftOf="@id/iv_homeFunction_clubManagement"/>
         <TextView
             android:id="@+id/tv_home_function_myAtivities"

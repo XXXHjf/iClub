@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_green"
+    tools:context=".actDetailActivity"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/home_background">
+
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi"
+            style="@style/AVLoadingIndicatorView.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            app:indicatorColor="#C493D2F3"
+            app:indicatorName="LineScaleIndicator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <View
+            android:id="@+id/view_actDetail_topBackGround"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/res_home_green_theme_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/space_actDetail_bottomOfTitle" />
+
+        <ImageView
+            android:id="@+id/iv_actDetail_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="30dp"
+            android:src="@drawable/ic_back_left_top"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.04" />
+
+        <TextView
+            android:id="@+id/tv_actDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="活动详情页"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <Space
+            android:id="@+id/space_actDetail_bottomOfTitle"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_actDetail" />
+
+        <ScrollView
+            android:id="@+id/sv_main_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_actDetail_topBackGround"
+            app:layout_constraintBottom_toTopOf="@id/button_signUp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_clubDetails_cover"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintDimensionRatio="w,9:16"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_actDetail_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textAlignment="center"
+                    app:layout_constraintTop_toBottomOf="@id/iv_clubDetails_cover"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tv_actDetail_notice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_actDetail_title"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_signNumHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text="已报名："
+                    android:textSize="14sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_actDetail_notice" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_signNum"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:text=""
+                    android:textColor="@color/textColor_actInfo"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_actDetail_signNumHint"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintLeft_toRightOf="@id/tv_actDetail_signNumHint"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_actDetail_signNumHint"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <View
+                    android:id="@+id/view_line_bottomOf_SignNum"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/lineColor_grey"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_actDetail_signNumHint"
+                    app:layout_constraintWidth_percent="0.95" />
+
+
+
+
+
+                <ImageView
+                    android:id="@+id/iv_actDetail_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_act_detail_time"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_line_bottomOf_SignNum" />
+                
+                <TextView
+                    android:id="@+id/tv_actDetail_timeHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text="活动时间："
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toRightOf="@id/iv_actDetail_time"
+                    app:layout_constraintTop_toTopOf="@id/iv_actDetail_time"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_time" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:layout_marginRight="15dp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_actDetail_timeHint"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_actDetail_time"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_time" />
+
+
+
+
+                <ImageView
+                    android:id="@+id/iv_actDetail_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_act_detail_location"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_actDetail_time" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_locationHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text="活动地点："
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toRightOf="@id/iv_actDetail_location"
+                    app:layout_constraintTop_toTopOf="@id/iv_actDetail_location"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_location" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:layout_marginRight="15dp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_actDetail_locationHint"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_actDetail_location"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_location" />
+
+
+
+
+
+
+                <ImageView
+                    android:id="@+id/iv_actDetail_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_act_detail_close"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_actDetail_location" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_closeHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text="报名截止日期："
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toRightOf="@id/iv_actDetail_close"
+                    app:layout_constraintTop_toTopOf="@id/iv_actDetail_close"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_close" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_close"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:layout_marginRight="15dp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_actDetail_closeHint"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_actDetail_close"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_close" />
+
+                <View
+                    android:id="@+id/view_line_bottomOf_close"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/lineColor_grey"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_actDetail_close"
+                    app:layout_constraintWidth_percent="0.95" />
+
+                <ImageView
+                    android:id="@+id/iv_actDetail_chargeMan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_act_detail_charge_man"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_line_bottomOf_close" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_chargeManHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text="活动负责人："
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toRightOf="@id/iv_actDetail_chargeMan"
+                    app:layout_constraintTop_toTopOf="@id/iv_actDetail_chargeMan"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_chargeMan" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_chargeMan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:layout_marginRight="15dp"
+                    app:layout_constraintLeft_toRightOf="@id/tv_actDetail_chargeManHint"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_actDetail_chargeMan"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_chargeMan" />
+
+                <View
+                    android:id="@+id/view_line_bottomOf_chargeMan"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/lineColor_grey"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_actDetail_chargeMan"
+                    app:layout_constraintWidth_percent="0.95" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_actContentHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColor_actInfo"
+                    android:text="活动介绍："
+                    android:textSize="14sp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_line_bottomOf_chargeMan" />
+
+                <TextView
+                    android:id="@+id/tv_actDetail_actContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/res_radius_act_content"
+                    android:text=""
+                    android:textColor="@color/textColor_actInfo"
+                    android:textSize="14sp"
+                    android:padding="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_actDetail_actContentHint"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/button_signUp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:background="@drawable/res_radius_act_detail_on"
+            android:text="立即报名"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_marginBottom="13dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sv_main_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.9" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

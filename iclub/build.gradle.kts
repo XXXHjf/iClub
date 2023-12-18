@@ -75,7 +75,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    // 引用此依赖后没有出现Debug相关的报错
+    // recyclerview库
     implementation("androidx.recyclerview:recyclerview:1.2.1")
 
     // 时间选择器

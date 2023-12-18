@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView_item_actManage"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:paddingTop="12dp">
+
+        <View
+            android:id="@+id/view_actManage_background"
+            android:layout_width="350dp"
+            android:layout_height="0dp"
+            android:background="@drawable/res_home_white_view_radius"
+            app:layout_constraintBottom_toBottomOf="@id/space_actManage_spaceBottom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_actManage_trumpet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_event_center_trumpet"
+            android:adjustViewBounds="true"
+            android:maxWidth="25dp"
+            app:layout_constraintTop_toTopOf="@id/tv_actManage_actName"
+            app:layout_constraintBottom_toBottomOf="@id/tv_actManage_actName"
+            app:layout_constraintRight_toLeftOf="@id/tv_actManage_actName"
+            app:layout_constraintLeft_toLeftOf="@id/view_actManage_background" />
+
+        <TextView
+            android:id="@+id/tv_actManage_actName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text=""
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toRightOf="@id/iv_actManage_trumpet"
+            app:layout_constraintRight_toLeftOf="@id/iv_actManage_cover"
+            app:layout_constraintTop_toTopOf="@id/view_actManage_background" />
+
+        <ImageView
+            android:id="@+id/iv_actManage_cover"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="4:3"
+            app:layout_constraintRight_toRightOf="@id/view_actManage_background"
+            app:layout_constraintTop_toTopOf="@id/view_actManage_background"
+            app:layout_constraintBottom_toTopOf="@id/tv_actManage_signUp"/>
+
+        <TextView
+            android:id="@+id/tv_actManage_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="活动时间："
+            android:textSize="14sp"
+            android:textColor="@color/textColor_actInfo"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/view_actManage_background"
+            app:layout_constraintTop_toBottomOf="@id/tv_actManage_actName" />
+
+        <TextView
+            android:id="@+id/tv_actManage_timeStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:textColor="@color/textColor_actInfo"
+            app:layout_constraintStart_toEndOf="@id/tv_actManage_time"
+            app:layout_constraintTop_toTopOf="@id/tv_actManage_time"
+            app:layout_constraintBottom_toBottomOf="@id/tv_actManage_time"/>
+
+        <TextView
+            android:id="@+id/tv_actManage_timeHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" ~"
+            android:textSize="14sp"
+            android:textColor="@color/textColor_actInfo"
+            app:layout_constraintStart_toEndOf="@id/tv_actManage_timeStart"
+            app:layout_constraintTop_toTopOf="@id/tv_actManage_time"
+            app:layout_constraintBottom_toBottomOf="@id/tv_actManage_time"/>
+
+        <TextView
+            android:id="@+id/tv_actManage_timeEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="14sp"
+            android:textColor="@color/textColor_actInfo"
+            app:layout_constraintStart_toStartOf="@id/tv_actManage_timeStart"
+            app:layout_constraintTop_toBottomOf="@id/tv_actManage_timeStart"/>
+
+
+        <TextView
+            android:id="@+id/tv_actManage_signUp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/res_radius_sign_on"
+            android:textAlignment="center"
+            android:text="报名中 33/100人"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:padding="3dp"
+            android:layout_marginTop="6dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_actManage_timeEnd"
+            app:layout_constraintLeft_toLeftOf="@id/view_actManage_background"
+            app:layout_constraintRight_toRightOf="@id/view_actManage_background"
+            app:layout_constraintWidth_percent="0.6" />
+
+        <Space
+            android:id="@+id/space_actManage_spaceBottom"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            app:layout_constraintStart_toStartOf="@id/view_actManage_background"
+            app:layout_constraintEnd_toEndOf="@id/view_actManage_background"
+            app:layout_constraintTop_toBottomOf="@id/tv_actManage_signUp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

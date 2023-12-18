@@ -2,21 +2,20 @@ package Beans;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.sql.Date;
 
 public class BeanUser {
-    public String userID;
-    public String userName;
-    public String password;
-    public String profileURL;
-    public String college;
-    public String majorClass;
-    public String nickName;
-    public String sex;
-    public String phoneNum;
-    public Date birthDate;
-    public int isPresident;
+    private String userID;
+    private String userName;
+    private String password;
+    private String profileURL;
+    private String college;
+    private String majorClass;
+    private String nickName;
+    private String sex;
+    private String phoneNum;
+    private Date birthDate;
+    private int isPresident;
 
     public String getUserID() {
         return userID;
@@ -123,6 +122,11 @@ public class BeanUser {
         this.isPresident = isPresident;
     }
 
+    /**
+     * 封装根据sql查询的ResultSet快速构建实体的方法
+     * @param rs 结果集ResultSet
+     * @return  用户实体类
+     */
     public static BeanUser resultSetToUser(ResultSet rs) {
         BeanUser beanUser = new BeanUser();
         try {
