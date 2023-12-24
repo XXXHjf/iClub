@@ -45,6 +45,8 @@ public class homeActivity extends AppCompatActivity {
         // 设置状态栏
         StatusTool.setStatusBar(this.getWindow());
 
+        bottomNavigationView = findViewById(R.id.bnv_bottom_menu);
+
         if ( !LoginStatusSP.getHasLogin(this) ) {
             Intent intent = new Intent(homeActivity.this, loginActivity.class);
             startActivity(intent);
@@ -109,7 +111,6 @@ public class homeActivity extends AppCompatActivity {
      * 初始化
      */
     private void initViews() {
-        bottomNavigationView = findViewById(R.id.bnv_bottom_menu);
         // 创建各个Fragment实例
         fragment_home = new Fragment_home();
         fragment_find = new Fragment_find();
