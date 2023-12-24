@@ -29,7 +29,7 @@ import tools.StatusTool;
 import tools.TransitionTool;
 import RecyclerViewHolder.ActViewHolder;
 import util.DBUtil;
-import util.SPDataUtils;
+import SPTools.userSP;
 
 public class actMineActivity extends AppCompatActivity implements View.OnClickListener {
     private List<BeanClubActivity> actList = new ArrayList<>();
@@ -49,7 +49,7 @@ public class actMineActivity extends AppCompatActivity implements View.OnClickLi
         StatusTool.setStatusBar(this.getWindow());
 
         initViews();
-        beanUser = SPDataUtils.getUserInfo(getApplicationContext());
+        beanUser = userSP.getUserInfo(getApplicationContext());
     }
 
     @Override

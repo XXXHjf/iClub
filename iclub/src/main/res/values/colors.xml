@@ -7,7 +7,7 @@
     <color name="black_01">#FF101010</color>
     <color name="home_background">#FFEFEFEF</color>
     <!--    分隔小短线的颜色-->
-    <color name="lineColor_grey">#D9BBBBBB</color>
+    <color name="lineColor_grey">#44BBBBBB</color>
     <!--    主页轮播图下方的字体的透明灰色背景-->
     <color name="Grey_bottomOf_slideshowText">#B26C6C6C</color>
     <!--    主页按钮背景的灰色-->

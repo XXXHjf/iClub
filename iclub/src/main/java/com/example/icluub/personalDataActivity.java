@@ -1,16 +1,14 @@
 package com.example.icluub;
 
+import static tools.TransitionTool.getPositionForArray;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
 
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -22,9 +20,7 @@ import com.loper7.date_time_picker.dialog.CardDatePickerDialog;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import Beans.BeanUser;
@@ -34,7 +30,7 @@ import tools.OperationPromptTool;
 import tools.StatusTool;
 import tools.TransitionTool;
 import util.DBUtil;
-import util.SPDataUtils;
+import SPTools.userSP;
 
 public class personalDataActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,8 +44,7 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
     private TextView tv_birthday;
     private ImageView iv_personalData_back;
     private View view_personalData_savingChanges;
-    private static String TAG_getPrsnData = "数据库调试";
-    private static String TAG = "数据库调试";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +59,7 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onStart() {
         super.onStart();
-        initPersonalInfo();
+        loadPersonalInfo();
     }
 
     @Override
@@ -78,8 +73,8 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
     /**
      * 初始化个人信息（从登陆时存储到sharedPreferences里的信息获取）
      */
-    private void initPersonalInfo() {
-        BeanUser beanUser = SPDataUtils.getUserInfo(getApplicationContext());
+    private void loadPersonalInfo() {
+        BeanUser beanUser = userSP.getUserInfo(getApplicationContext());
         // 获取array的college数组
         String[] colleges = getResources().getStringArray(R.array.college);
         // 找到用户的学院在数组中的位置
@@ -118,6 +113,7 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
         view_personalData_savingChanges = findViewById(R.id.view_personalData_savingChanges);
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -157,26 +153,6 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
     };
 
     /**
-     * 获取array中某个选项在其中的位置
-     * @param userCollege 用户的学院信息
-     * @param collegeArray 学院数组布局
-     * @return array中item的下标
-     */
-    public int getPositionForArray(String userCollege, String[] collegeArray) {
-        // 将数组collegeArray转换为列表
-        List<String> collegeList = Arrays.asList(collegeArray);
-
-        // 检查数组是否包含 null 值，处理包含 null 值的情况，返回第一位
-        if (collegeList.contains(null))
-            return 0;
-
-        // 如果在列表中找到就返回position，否则返回0
-        int position = collegeList.indexOf(userCollege);
-        return position != -1 ? position : 0;
-    }
-
-
-    /**
      * 重写onClick方法
      * @param view
      */
@@ -213,47 +189,56 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
         }
         //点击保存修改后将修改后的数据传到数据库中
         else if (view.getId() == R.id.view_personalData_savingChanges) {
-            Thread threads = new Thread(new Runnable() {
+            OperationPromptTool.showConfirmDialog(personalDataActivity.this, "确定保存修改吗？", new Runnable() {
                 @Override
                 public void run() {
-                    Connection conn = null;
-                    BeanUser beanUser = SPDataUtils.getUserInfo(getApplicationContext());
-                    // 更新登录用户的SP文件信息
-                    SPDataUtils.updatePersonalInfo(getApplicationContext(), (String) spinner_college.getSelectedItem(), et_personalData_major.getText().toString(),
-                            et_nickname.getText().toString(), (String) spinner_sex.getSelectedItem(), et_phone.getText().toString(), tv_birthday.getText().toString());
-                    // 更新登录用户的数据库数据
-                    try {
-                        conn = DBUtil.getConnection();
-                        String sql = "update user set college=?, majorClass=?, nickName=?, sex=?, phoneNum=?, birthDate=? "
-                                + "where userID=?";
-                        java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-                        pst.setString(1, (String) spinner_college.getSelectedItem());
-                        pst.setString(2, et_personalData_major.getText().toString());
-                        pst.setString(3, et_nickname.getText().toString());
-                        pst.setString(4, (String) spinner_sex.getSelectedItem());
-                        pst.setString(5, et_phone.getText().toString());
-
-                        // 将字符串日期转换为sql.Date类型
-                        java.sql.Date sqlDate = TransitionTool.StringToSqlDate(tv_birthday.getText().toString());
-                        pst.setDate(6, sqlDate);
-                        pst.setString(7, beanUser.getUserID());
-                        int i = pst.executeUpdate();
-                        if (i == 1) {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    OperationPromptTool.showMsg(personalDataActivity.this, "保存成功！");
-                                }
-                            });
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } finally {
-                        DBUtil.close(conn);
-                    }
+                    new Thread_commitData().start();
                 }
             });
-            new Thread(threads).start();
+        }
+    }
+
+    /**
+     * 自定义线程：提交保存修改
+     */
+    private class Thread_commitData extends Thread {
+        @Override
+        public void run() {
+            Connection conn = null;
+            BeanUser beanUser = userSP.getUserInfo(getApplicationContext());
+            // 更新登录用户的SP文件信息
+            userSP.updatePersonalInfo(getApplicationContext(), (String) spinner_college.getSelectedItem(), et_personalData_major.getText().toString(),
+                    et_nickname.getText().toString(), (String) spinner_sex.getSelectedItem(), et_phone.getText().toString(), tv_birthday.getText().toString());
+            // 更新登录用户的数据库数据
+            try {
+                conn = DBUtil.getConnection();
+                String sql = "update user set college=?, majorClass=?, nickName=?, sex=?, phoneNum=?, birthDate=? "
+                        + "where userID=?";
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, (String) spinner_college.getSelectedItem());
+                pst.setString(2, et_personalData_major.getText().toString());
+                pst.setString(3, et_nickname.getText().toString());
+                pst.setString(4, (String) spinner_sex.getSelectedItem());
+                pst.setString(5, et_phone.getText().toString());
+
+                // 将字符串日期转换为sql.Date类型
+                java.sql.Date sqlDate = TransitionTool.StringToSqlDate(tv_birthday.getText().toString());
+                pst.setDate(6, sqlDate);
+                pst.setString(7, beanUser.getUserID());
+                int i = pst.executeUpdate();
+                if (i == 1) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            OperationPromptTool.showMsg(personalDataActivity.this, "保存成功！");
+                        }
+                    });
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                DBUtil.close(conn);
+            }
         }
     }
 }

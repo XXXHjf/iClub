@@ -11,7 +11,7 @@
     <Space
         android:id="@+id/space_personalData_blockTop"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
+        android:layout_height="2dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -145,6 +145,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_personalData_stuID" />
 
     <TextView
+        android:id="@+id/tv_personalData_collegeHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="学院"
@@ -155,14 +156,26 @@
         app:layout_constraintRight_toRightOf="@id/view_personalData_college"
         app:layout_constraintHorizontal_bias="0.04" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="25dp"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_join_club_writable"
+        app:layout_constraintLeft_toRightOf="@id/tv_personalData_collegeHint"
+        app:layout_constraintTop_toTopOf="@id/tv_personalData_collegeHint"
+        app:layout_constraintBottom_toBottomOf="@id/tv_personalData_collegeHint" />
+
 
     <Spinner
         android:id="@+id/spinner_college"
-        android:layout_width="190dp"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:textAlignment="viewEnd"
         android:paddingRight="0dp"
         android:entries="@array/college"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="@id/view_personalData_college"
         app:layout_constraintBottom_toBottomOf="@id/view_personalData_college"
         app:layout_constraintLeft_toLeftOf="@id/view_personalData_college"
@@ -184,9 +197,10 @@
         app:layout_constraintTop_toBottomOf="@id/view_personalData_college" />
 
     <TextView
+        android:id="@+id/tv_personalData_majorHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="专业"
+        android:text="专业班级"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="@id/view_personalData_major"
         app:layout_constraintBottom_toBottomOf="@id/view_personalData_major"
@@ -194,21 +208,36 @@
         app:layout_constraintRight_toRightOf="@id/view_personalData_major"
         app:layout_constraintHorizontal_bias="0.04" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="25dp"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_join_club_writable"
+        app:layout_constraintLeft_toRightOf="@id/tv_personalData_majorHint"
+        app:layout_constraintTop_toTopOf="@id/tv_personalData_majorHint"
+        app:layout_constraintBottom_toBottomOf="@id/tv_personalData_majorHint" />
+
     <EditText
         android:id="@+id/et_personalData_major"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="软件工程"
-        android:hint="专业"
+        android:gravity="right"
+        android:hint="请输入专业班级"
+        android:maxEms="10"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/black"
         android:background="@color/white"
         android:textSize="18sp"
         android:selectAllOnFocus="true"
-        android:singleLine="true"
-        app:layout_constraintTop_toTopOf="@id/view_personalData_major"
         app:layout_constraintBottom_toBottomOf="@id/view_personalData_major"
+        app:layout_constraintHorizontal_bias="0.961"
         app:layout_constraintLeft_toLeftOf="@id/view_personalData_major"
         app:layout_constraintRight_toRightOf="@id/view_personalData_major"
-        app:layout_constraintHorizontal_bias="0.96" />
+        app:layout_constraintTop_toTopOf="@id/view_personalData_major"
+        app:layout_constraintVertical_bias="0.541" />
 
     <View
         android:layout_width="match_parent"
@@ -224,6 +253,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_personalData_major" />
 
     <TextView
+        android:id="@+id/tv_personalData_baseInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="基本信息"
@@ -244,26 +274,52 @@
         app:layout_constraintTop_toBottomOf="@id/space_personalData_block_basicInfo" />
 
     <TextView
+        android:id="@+id/tv_personalData_nickNameHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="昵称"
         android:textSize="18sp"
-        app:layout_constraintTop_toTopOf="@id/view_personalData_nickname"
         app:layout_constraintBottom_toBottomOf="@id/view_personalData_nickname"
+        app:layout_constraintHorizontal_bias="0.042"
         app:layout_constraintLeft_toLeftOf="@id/view_personalData_nickname"
         app:layout_constraintRight_toRightOf="@id/view_personalData_nickname"
-        app:layout_constraintHorizontal_bias="0.04" />
+        app:layout_constraintTop_toTopOf="@id/view_personalData_nickname" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="25dp"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_join_club_writable"
+        app:layout_constraintLeft_toRightOf="@id/tv_personalData_nickNameHint"
+        app:layout_constraintTop_toTopOf="@id/tv_personalData_nickNameHint"
+        app:layout_constraintBottom_toBottomOf="@id/tv_personalData_nickNameHint" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="25dp"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_join_club_writable"
+        app:layout_constraintLeft_toRightOf="@id/tv_personalData_majorHint"
+        app:layout_constraintTop_toTopOf="@id/tv_personalData_majorHint"
+        app:layout_constraintBottom_toBottomOf="@id/tv_personalData_majorHint" />
 
     <EditText
         android:id="@+id/et_nickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="胡椒粉"
-        android:hint="昵称"
+        android:hint="请输入昵称"
+        android:gravity="right"
+        android:maxEms="10"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:textColor="@color/black"
         android:background="@color/white"
         android:textSize="18sp"
         android:selectAllOnFocus="true"
-        android:singleLine="true"
         app:layout_constraintTop_toTopOf="@id/view_personalData_nickname"
         app:layout_constraintBottom_toBottomOf="@id/view_personalData_nickname"
         app:layout_constraintLeft_toLeftOf="@id/view_personalData_nickname"
@@ -279,6 +335,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_personalData_nickname" />
 
     <TextView
+        android:id="@+id/tv_personalData_sexHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="性别"
@@ -289,12 +346,24 @@
         app:layout_constraintRight_toRightOf="@id/view_personalData_sex"
         app:layout_constraintHorizontal_bias="0.04" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="25dp"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_join_club_writable"
+        app:layout_constraintLeft_toRightOf="@id/tv_personalData_sexHint"
+        app:layout_constraintTop_toTopOf="@id/tv_personalData_sexHint"
+        app:layout_constraintBottom_toBottomOf="@id/tv_personalData_sexHint" />
+
     <Spinner
         android:id="@+id/spinner_sex"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
         android:paddingRight="0dp"
+        android:textColor="@color/black"
         android:entries="@array/sex"
         android:textAlignment="viewEnd"
         app:layout_constraintTop_toTopOf="@id/view_personalData_sex"
@@ -318,6 +387,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_personalData_sex" />
 
     <TextView
+        android:id="@+id/tv_personalData_phoneHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="联系电话"
@@ -328,13 +398,29 @@
         app:layout_constraintRight_toRightOf="@id/view_personalData_phone"
         app:layout_constraintHorizontal_bias="0.04" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="25dp"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_join_club_writable"
+        app:layout_constraintLeft_toRightOf="@id/tv_personalData_phoneHint"
+        app:layout_constraintTop_toTopOf="@id/tv_personalData_phoneHint"
+        app:layout_constraintBottom_toBottomOf="@id/tv_personalData_phoneHint" />
+
     <EditText
         android:id="@+id/et_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="13869829323"
-        android:hint="输入手机号"
+        android:hint="请输入手机号"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/black"
         android:inputType="phone"
+        android:gravity="right"
+        android:maxEms="10"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:background="@color/white"
         android:textSize="18sp"
         app:layout_constraintTop_toTopOf="@id/view_personalData_phone"
@@ -358,6 +444,7 @@
         app:layout_constraintTop_toBottomOf="@id/view_personalData_phone" />
 
     <TextView
+        android:id="@+id/tv_personalData_birHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="出生日期"
@@ -368,11 +455,24 @@
         app:layout_constraintRight_toRightOf="@id/view_personalData_birth"
         app:layout_constraintHorizontal_bias="0.04" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="25dp"
+        android:layout_marginLeft="1dp"
+        android:src="@drawable/ic_join_club_writable"
+        app:layout_constraintLeft_toRightOf="@id/tv_personalData_birHint"
+        app:layout_constraintTop_toTopOf="@id/tv_personalData_birHint"
+        app:layout_constraintBottom_toBottomOf="@id/tv_personalData_birHint" />
+
     <TextView
         android:id="@+id/tv_birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1999-9-9"
+        android:hint="请选择出生日期"
+        android:gravity="right"
+        android:textColor="@color/black"
         android:background="@color/white"
         android:textSize="18sp"
         android:selectAllOnFocus="true"

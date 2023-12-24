@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/home_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/joinClub_rootItem"
+    tools:context=".joinClubActivity">
+
+    <Space
+        android:id="@+id/space_joinClub_blockTop"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_joinClub_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:maxWidth="30dp"
+        android:src="@drawable/ic_back_left_top"
+        app:layout_constraintTop_toBottomOf="@id/space_joinClub_blockTop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.04" />
+
+    <TextView
+        android:id="@+id/tv_joinClub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="加入社团"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/space_joinClub_blockTop"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <View
+        android:id="@+id/view_joinClub_Line"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@color/lineColor_grey"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_joinClub" />
+
+    <ScrollView
+        android:id="@+id/sv_joinClub"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_joinClub_Line"
+        app:layout_constraintBottom_toTopOf="@id/view_joinClub_commitBack" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_createAct_toFront"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="修改个人资料请点击"
+                android:textSize="18sp"
+                android:layout_marginTop="3dp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tv_createAct_to"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
+                android:id="@+id/tv_createAct_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="此处"
+                android:textColor="#FF75F9FD"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toRightOf="@id/tv_createAct_toFront"
+                app:layout_constraintRight_toLeftOf="@id/tv_createAct_toBehind"
+                app:layout_constraintTop_toTopOf="@id/tv_createAct_toFront"
+                app:layout_constraintBottom_toBottomOf="@id/tv_createAct_toFront"/>
+            <TextView
+                android:id="@+id/tv_createAct_toBehind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="跳转"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toRightOf="@id/tv_createAct_to"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_createAct_toFront"
+                app:layout_constraintBottom_toBottomOf="@id/tv_createAct_toFront"/>
+
+            <!--    姓名-->
+            <View
+                android:id="@+id/view_joinClub_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_createAct_toFront" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_name"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_name"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_name"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_name" />
+
+            <TextView
+                android:id="@+id/tv_joinClub_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_name"
+                app:layout_constraintHorizontal_bias="0.96"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_name"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_name"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_name" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_name"
+                app:layout_constraintBottom_toTopOf="@id/view_joinClub_stuID" />
+
+            <!--    学号-->
+            <View
+                android:id="@+id/view_joinClub_stuID"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_name" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学号："
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_stuID"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_stuID"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_stuID"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_stuID" />
+
+            <TextView
+                android:id="@+id/tv_joinClub_stuID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_stuID"
+                app:layout_constraintHorizontal_bias="0.96"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_stuID"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_stuID"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_stuID" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_stuID"
+                app:layout_constraintBottom_toTopOf="@id/view_joinClub_belongCollege" />
+
+            <!--    所在社团-->
+            <View
+                android:id="@+id/view_joinClub_belongCollege"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_stuID" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="所在学院："
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_belongCollege"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_belongCollege"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_belongCollege"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_belongCollege" />
+
+            <TextView
+                android:id="@+id/tv_joinClub_belongCollege"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="18sp"
+                android:maxEms="10"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_belongCollege"
+                app:layout_constraintHorizontal_bias="0.96"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_belongCollege"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_belongCollege"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_belongCollege" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_belongCollege"
+                app:layout_constraintBottom_toTopOf="@id/view_joinCLub_majorClass" />
+
+            <!--    专业班级-->
+            <View
+                android:id="@+id/view_joinCLub_majorClass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_belongCollege" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="专业班级："
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinCLub_majorClass"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinCLub_majorClass"
+                app:layout_constraintRight_toRightOf="@id/view_joinCLub_majorClass"
+                app:layout_constraintTop_toTopOf="@id/view_joinCLub_majorClass" />
+
+            <TextView
+                android:id="@+id/tv_joinClub_majorClass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="18sp"
+                android:maxEms="10"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinCLub_majorClass"
+                app:layout_constraintHorizontal_bias="0.96"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinCLub_majorClass"
+                app:layout_constraintRight_toRightOf="@id/view_joinCLub_majorClass"
+                app:layout_constraintTop_toTopOf="@id/view_joinCLub_majorClass" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_joinCLub_majorClass"
+                app:layout_constraintBottom_toTopOf="@id/view_joinClub_toJoinClub" />
+
+            <!--    申请加入的社团-->
+            <View
+                android:id="@+id/view_joinClub_toJoinClub"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view_joinCLub_majorClass" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="申请加入的社团："
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_toJoinClub"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_toJoinClub"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_toJoinClub"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_toJoinClub" />
+
+            <TextView
+                android:id="@+id/tv_joinClub_toJoinClub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textSize="18sp"
+                android:maxEms="10"
+                android:ellipsize="end"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_toJoinClub"
+                app:layout_constraintHorizontal_bias="0.96"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_toJoinClub"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_toJoinClub"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_toJoinClub" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_toJoinClub"
+                app:layout_constraintBottom_toTopOf="@id/view_joinClub_phone" />
+
+            <!--    联系电话-->
+            <View
+                android:id="@+id/view_joinClub_phone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_toJoinClub"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <TextView
+                android:id="@+id/tv_joinClub_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="联系电话："
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_phone"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_phone"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_phone"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_phone" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxWidth="25dp"
+                android:src="@drawable/ic_join_club_writable"
+                app:layout_constraintLeft_toRightOf="@id/tv_joinClub_phone"
+                app:layout_constraintTop_toTopOf="@id/tv_joinClub_phone"
+                app:layout_constraintBottom_toBottomOf="@id/tv_joinClub_phone" />
+
+            <EditText
+                android:id="@+id/et_joinClub_phone"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="right"
+                android:singleLine="true"
+                android:textSize="18sp"
+                android:inputType="phone"
+                android:hint="请输入联系电话"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_phone"
+                app:layout_constraintHorizontal_bias="0.96"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_phone"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_phone"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_phone" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_phone"
+                app:layout_constraintBottom_toTopOf="@id/view_joinClub_Wechat" />
+
+            <!--    微信-->
+            <View
+                android:id="@+id/view_joinClub_Wechat"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_phone" />
+
+            <TextView
+                android:id="@+id/tv_joinClub_Wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信："
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_Wechat"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_Wechat"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_Wechat"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_Wechat" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxWidth="25dp"
+                android:src="@drawable/ic_join_club_writable"
+                app:layout_constraintLeft_toRightOf="@id/tv_joinClub_Wechat"
+                app:layout_constraintTop_toTopOf="@id/tv_joinClub_Wechat"
+                app:layout_constraintBottom_toBottomOf="@id/tv_joinClub_Wechat" />
+
+            <EditText
+                android:id="@+id/et_joinClub_Wechat"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
+                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:gravity="right"
+                android:textSize="18sp"
+                android:hint="请输入微信号(选填)"
+                app:layout_constraintBottom_toBottomOf="@id/view_joinClub_Wechat"
+                app:layout_constraintHorizontal_bias="0.96"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_Wechat"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_Wechat"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_Wechat" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_Wechat"
+                app:layout_constraintBottom_toTopOf="@id/view_joinClub_reason" />
+
+            <!--  申请理由-->
+            <View
+                android:id="@+id/view_joinClub_reason"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view_joinClub_Wechat" />
+
+            <TextView
+                android:id="@+id/tv_joinClub_reasonHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:text="申请理由："
+                android:textSize="18sp"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_reason"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_reason"
+                app:layout_constraintTop_toTopOf="@id/view_joinClub_reason" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxWidth="25dp"
+                android:src="@drawable/ic_join_club_writable"
+                app:layout_constraintLeft_toRightOf="@id/tv_joinClub_reasonHint"
+                app:layout_constraintTop_toTopOf="@id/tv_joinClub_reasonHint"
+                app:layout_constraintBottom_toBottomOf="@id/tv_joinClub_reasonHint" />
+
+            <EditText
+                android:id="@+id/et_joinClub_reason"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/res_radius_act_content"
+                android:gravity="start"
+                android:hint="请输入内容"
+                android:minLines="20"
+                android:maxLines="200"
+                android:padding="5dp"
+                android:textColor="@color/textColor_actInfo"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="@id/view_joinClub_reason"
+                app:layout_constraintRight_toRightOf="@id/view_joinClub_reason"
+                app:layout_constraintTop_toBottomOf="@id/tv_joinClub_reasonHint" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_joinClub_reason" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <View
+        android:id="@+id/view_joinClub_commitBack"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/button_joinClub_commit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:background="@drawable/res_radius_act_detail_on"
+        android:text="提交申请"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="@id/view_joinClub_commitBack"
+        app:layout_constraintBottom_toBottomOf="@id/view_joinClub_commitBack"
+        app:layout_constraintLeft_toLeftOf="@id/view_joinClub_commitBack"
+        app:layout_constraintRight_toRightOf="@id/view_joinClub_commitBack"
+        app:layout_constraintWidth_percent="0.8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

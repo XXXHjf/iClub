@@ -11,6 +11,24 @@ public class BeanClubMember {
     private int memberRole;
     private Timestamp joinDate;
     private int ifPassed;
+    private String WeChat;
+    private String applyReason;
+
+    public String getWeChat() {
+        return WeChat;
+    }
+
+    public void setWeChat(String weChat) {
+        WeChat = weChat;
+    }
+
+    public String getApplyReason() {
+        return applyReason;
+    }
+
+    public void setApplyReason(String applyReason) {
+        this.applyReason = applyReason;
+    }
 
     public int getMemberIndexID() {
         return memberIndexID;
@@ -63,13 +81,15 @@ public class BeanClubMember {
     public BeanClubMember() {
     }
 
-    public BeanClubMember(int memberIndexID, int clubID, String userID, int memberRole, Timestamp joinDate, int ifPassed) {
+    public BeanClubMember(int memberIndexID, int clubID, String userID, int memberRole, Timestamp joinDate, int ifPassed, String weChat, String applyReason) {
         this.memberIndexID = memberIndexID;
         this.clubID = clubID;
         this.userID = userID;
         this.memberRole = memberRole;
         this.joinDate = joinDate;
         this.ifPassed = ifPassed;
+        WeChat = weChat;
+        this.applyReason = applyReason;
     }
 
     /**
@@ -86,7 +106,9 @@ public class BeanClubMember {
             beanClubMember.setUserID(rs.getString(index++));
             beanClubMember.setMemberRole(rs.getInt(index++));
             beanClubMember.setJoinDate(rs.getTimestamp(index++));
-            beanClubMember.setIfPassed(rs.getInt(index));
+            beanClubMember.setIfPassed(rs.getInt(index++));
+            beanClubMember.setWeChat(rs.getString(index++));
+            beanClubMember.setApplyReason(rs.getString(index));
         } catch (SQLException e) {
             e.printStackTrace();
         }

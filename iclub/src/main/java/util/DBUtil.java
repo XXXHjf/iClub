@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBUtil {
-    private static final String TAG = "mySQL数据库连接调试";
     private static final String jdbcUrl = "jdbc:mysql://"
             +"hjf-2447129407.rwlb.rds.aliyuncs.com:3306"
             +"/iclub"

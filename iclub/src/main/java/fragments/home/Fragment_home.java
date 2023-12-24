@@ -1,54 +1,64 @@
 package fragments.home;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.icluub.R;
 import com.example.icluub.actCenterActivity;
+import com.example.icluub.actDetailActivity;
 import com.example.icluub.actMineActivity;
 import com.example.icluub.clubListActivity;
 import com.example.icluub.clubManageActivity;
 import com.example.icluub.clubMineActivity;
+import com.huawei.hms.hmsscankit.ScanUtil;
+import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.config.IndicatorConfig;
 import com.youth.banner.holder.BannerImageHolder;
 import com.youth.banner.indicator.CircleIndicator;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.listener.OnPageChangeListener;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
+import Beans.BeanClubActivity;
 import Beans.BeanUser;
-import bean.BannerBean_resource;
-import util.SPDataUtils;
+import SPTools.appStatusSP;
+import SPTools.userSP;
+import tools.OperationPromptTool;
+import util.DBUtil;
 
-public class Fragment_home extends Fragment implements View.OnClickListener {
-
+public class Fragment_home extends Fragment implements View.OnClickListener, OnBannerListener, OnPageChangeListener {
     private TextView tv_banner_title;
     private int isPresident = 0;
+    private final ArrayList<BeanClubActivity> bannerBeanList = new ArrayList<>();
+    private Banner banner_slideshow;
+    private BannerHomeAdapter bannerHomeAdapter;
+    private static final int REQUEST_CODE_SCAN_ONE = 0X01;
 
     public Fragment_home() {
-        // Required empty public constructor
     }
 
-    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        //轮播图对应的标题
-        tv_banner_title = view.findViewById(R.id.tv_banner_title);
 
         // UI里做了但是暂时不打算实现的功能，先设置为不可见
         view.findViewById(R.id.iv_homeFunction_function01).setVisibility(View.INVISIBLE);
@@ -56,16 +66,22 @@ public class Fragment_home extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.iv_homeFunction_function02).setVisibility(View.INVISIBLE);
         view.findViewById(R.id.tv_home_function_function02).setVisibility(View.INVISIBLE);
 
-        initView(view);
+        Thread_getBannerActs thread = new Thread_getBannerActs();
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        initViews(view);
 
-        BeanUser beanUser = SPDataUtils.getUserInfo(requireContext());
+        BeanUser beanUser = userSP.getUserInfo(requireContext());
         isPresident = beanUser.getIsPresident();
         if (isPresident == 0) {
             view.findViewById(R.id.iv_homeFunction_clubManagement).setVisibility(View.INVISIBLE);
             view.findViewById(R.id.tv_home_function_clubManagement).setVisibility(View.INVISIBLE);
         }
 
-        // Inflate the layout for this fragment
         return view;
     }
 
@@ -78,6 +94,32 @@ public class Fragment_home extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.iv_homeFunction_activities).setOnClickListener(this);
         view.findViewById(R.id.iv_homeFunction_myActivities).setOnClickListener(this);
         view.findViewById(R.id.iv_homeFunction_clubManagement).setOnClickListener(this);
+        view.findViewById(R.id.iv_QRcode_scanner).setOnClickListener(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        banner_slideshow.start();
+    }
+
+    /**
+     * 初始化组件
+     * @param view   视图
+     */
+    private void initViews(View view) {
+        tv_banner_title = view.findViewById(R.id.tv_banner_title);
+        bannerHomeAdapter = new BannerHomeAdapter(bannerBeanList);
+        banner_slideshow = view.findViewById(R.id.banner_slideshow);
+        banner_slideshow.setAdapter(bannerHomeAdapter)
+                .addBannerLifecycleObserver(this)       //添加生命周期观察者
+                .setIntercept(false)        //是否要拦截事件
+                .setBannerRound(30f)        // 圆角
+                .setIndicator(new CircleIndicator(getContext()))        // 设置圆形指示器
+                .setIndicatorGravity(IndicatorConfig.Direction.RIGHT)       // 设置指示器位置在右边
+                .setOnBannerListener(this)      // 重写的方法在下面
+                .addOnPageChangeListener(this)      // 重写的方法在下面
+                .setCurrentItem(0);     // 设置初始位置在0
     }
 
     @Override
@@ -98,65 +140,92 @@ public class Fragment_home extends Fragment implements View.OnClickListener {
         } else if (view.getId() == R.id.iv_homeFunction_clubManagement) {
             Intent intent = new Intent(requireContext(), clubManageActivity.class);
             startActivity(intent);
+        } else if (view.getId() == R.id.iv_QRcode_scanner) {
+            if ( appStatusSP.getHasCameraPermissions(requireContext()) )
+                ScanUtil.startScan(requireActivity(), REQUEST_CODE_SCAN_ONE, new HmsScanAnalyzerOptions.Creator().create());
+            else
+                OperationPromptTool.showMsg(requireContext(),"未获取相机权限");
         }
     }
 
-    private void initView(View view) {
-        //创建一个实例类保存轮播图每张图片的信息
-        ArrayList<BannerBean_resource> bannerBeanList = new ArrayList<>();
-        bannerBeanList.add(new BannerBean_resource("2", "被迫营业被迫营业被迫营业被迫营业被迫营业", R.drawable.forced_working));
-        bannerBeanList.add(new BannerBean_resource("1", "啦啦操比赛合影啦啦操比赛合影啦啦操比赛合影", R.drawable.cheerleading_groupphoto));
-        bannerBeanList.add(new BannerBean_resource("4", "鲁迪乌斯希露菲", R.drawable.ludiwusi));
-        bannerBeanList.add(new BannerBean_resource("3", "省运会合影省运会合影省运会合影省运会合影", R.drawable.provincialgames_groupphoto));
+    /**
+     * 重写Banner的点击事件
+     * @param data     数据实体
+     * @param position 当前位置
+     */
+    @Override
+    public void OnBannerClick(Object data, int position) {
+        BeanClubActivity bean = (BeanClubActivity) data;
+        Intent intent = new Intent(requireContext(), actDetailActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("actID", bean.getActID());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 
-        Banner banner_slideshow = view.findViewById(R.id.banner_slideshow);
-        banner_slideshow.setAdapter(new BannerImageAdapter<BannerBean_resource>(bannerBeanList) {
-            @Override
-            public void onBindView(BannerImageHolder holder, BannerBean_resource bannerBean, int position, int size) {
-                Glide.with(holder.imageView).load(bannerBean.getResource())
-                        .thumbnail(Glide.with(holder.itemView).load(R.drawable.ic_loading))   //加载成功前显示一个loading的加载
-                        .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))   //设置图片圆角
-                        .into(holder.imageView);
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        String title = bannerBeanList.get(position).getActTitle();
+        tv_banner_title.setText(title);
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    private class BannerHomeAdapter extends BannerImageAdapter<BeanClubActivity> {
+        public BannerHomeAdapter(List<BeanClubActivity> mData) {
+            super(mData);
+        }
+
+        @Override
+        public void onBindView(BannerImageHolder holder, BeanClubActivity data, int position, int size) {
+            Glide.with(holder.imageView)
+                    .load(data.getActCover())
+                    .thumbnail(Glide.with(holder.itemView).load(R.drawable.ic_loading))   //加载成功前显示一个loading的加载
+                    .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))   //设置图片圆角
+                    .into(holder.imageView);
+        }
+    }
+
+    /**
+     * 自定义线程：随机抽取四个活动的信息
+     */
+    private class Thread_getBannerActs extends Thread {
+        @Override
+        public void run() {
+            Connection conn = null;
+            try {
+                conn = DBUtil.getConnection();
+                String sql = "SELECT * FROM ClubActivityView AS t1 " +
+                        "WHERE t1.ifPassed = 1 " +
+                        "  AND t1.actID >= (" +
+                        "    SELECT ROUND(RAND() * ((SELECT MAX(actID) FROM ClubActivityView) - (SELECT MIN(actID) FROM ClubActivityView)) " +
+                        "+ (SELECT MIN(actID) FROM ClubActivityView)) AS actID " +
+                        "  ) " +
+                        "ORDER BY t1.actID " +
+                        "LIMIT 1";
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                for ( bannerBeanList.size(); bannerBeanList.size() < 4; ) {
+                    java.sql.ResultSet rs = pst.executeQuery();
+                    if (rs.next()) {
+                        BeanClubActivity bean = BeanClubActivity.resultSetToActivity(rs);
+                        if ( !bannerBeanList.contains(bean) )
+                            bannerBeanList.add(bean);
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                DBUtil.close(conn);
             }
-        });
-        banner_slideshow.addBannerLifecycleObserver(this);  //添加生命周期观察者
-        banner_slideshow.setIntercept(false);    //是否要拦截事件
-        banner_slideshow.setBannerRound(30f); //圆角
-        banner_slideshow.setIndicator(new CircleIndicator(getContext())); //圆形指示器 还支持条形指示器等
-        banner_slideshow.setIndicatorGravity(IndicatorConfig.Direction.RIGHT);   //设置指示器位置在右边
-
-        // 设置画廊效果，第一个参数是缩放比例，第二个参数是缩放的偏移量
-//        banner_slideshow.setBannerGalleryEffect(30, 10);
-        // 设置点击事件
-//        banner_slideshow.setOnBannerListener(new OnBannerListener() {
-//                    @Override
-//                    public void OnBannerClick(Object data, int position) {
-//                        BannerBean_resource bannerBean = (BannerBean_resource) data;
-//                        String title = bannerBean.getTitle();
-//                        tv_banner_title.setText(title);
-//                        Toast.makeText(Home.this,"位置"+position+"",Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-        // 自定义监听器，用于更新轮播图标题
-        banner_slideshow.addOnPageChangeListener(new OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                String title = bannerBeanList.get(position).getTitle();
-                tv_banner_title.setText(title);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-
-        // 初始化标题控件
-        tv_banner_title = view.findViewById(R.id.tv_banner_title);
-        tv_banner_title.setText(bannerBeanList.get(0).getTitle());
+        }
     }
 
 }

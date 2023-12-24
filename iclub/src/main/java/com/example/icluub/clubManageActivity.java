@@ -1,12 +1,7 @@
 package com.example.icluub;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -14,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.bumptech.glide.Glide;
@@ -33,7 +27,7 @@ import fragments.manage.Fragment_memberManage;
 import tools.FragmentTool;
 import tools.StatusTool;
 import util.DBUtil;
-import util.SPDataUtils;
+import SPTools.userSP;
 
 public class clubManageActivity extends AppCompatActivity implements View.OnClickListener,Fragment_actManage.ActManageFragmentListener {
     private ImageView iv_clubManage_back;
@@ -43,7 +37,7 @@ public class clubManageActivity extends AppCompatActivity implements View.OnClic
     private TextView tv_clubManage_actNum;
     private TextView tv_clubManage_actManage;
     private TextView tv_clubManage_clubManage;
-    private int clubID = -1;    //社团ID初始值赋值为-1
+    public static int clubID = -1;    //社团ID初始值赋值为-1
     private BeanClub beanClub;
     private int memberNum;
     private int actNum;
@@ -154,7 +148,7 @@ public class clubManageActivity extends AppCompatActivity implements View.OnClic
     public void onAddActClick() {
         Intent intent = new Intent(clubManageActivity.this, createActActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("beanClub", beanClub);
+        bundle.putSerializable("beanClub", beanClub);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -165,7 +159,7 @@ public class clubManageActivity extends AppCompatActivity implements View.OnClic
     private class Thread_getSQL_clubID extends Thread {
         @Override
         public void run() {
-            BeanUser beanUser = SPDataUtils.getUserInfo(getApplicationContext());
+            BeanUser beanUser = userSP.getUserInfo(getApplicationContext());
             String userID = beanUser.getUserID();
             Connection conn = null;
             try {

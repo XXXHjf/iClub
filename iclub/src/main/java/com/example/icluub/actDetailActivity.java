@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestOptions;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.sql.Connection;
@@ -25,7 +24,7 @@ import tools.OperationPromptTool;
 import tools.StatusTool;
 import tools.TransitionTool;
 import util.DBUtil;
-import util.SPDataUtils;
+import SPTools.userSP;
 
 public class actDetailActivity extends AppCompatActivity implements View.OnClickListener {
     private int actID;
@@ -58,7 +57,7 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
         // 初始化组件
         initViews();
 
-        beanUser = SPDataUtils.getUserInfo(getApplicationContext());
+        beanUser = userSP.getUserInfo(getApplicationContext());
 
         // 获得活动中心页面被点击,传递过来的活动的ID
         Bundle bundleActID = getIntent().getExtras();
@@ -174,16 +173,21 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
         if (view.getId() == R.id.button_signUp) {
             if (ifSignFlag) {
                 // 取消报名
-                ifSignFlag = !ifSignFlag;
-                Thread_cancelSignUp thread = new Thread_cancelSignUp();
-                thread.start();
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                new Thread_getSQL_actDetail().start();
-                OperationPromptTool.showMsg(actDetailActivity.this, "取消报名成功！");
+                OperationPromptTool.showConfirmDialog(actDetailActivity.this, "您确定取消报名吗？", new Runnable() {
+                    @Override
+                    public void run() {
+                        ifSignFlag = !ifSignFlag;
+                        Thread_cancelSignUp thread = new Thread_cancelSignUp();
+                        thread.start();
+                        try {
+                            thread.join();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        new Thread_getSQL_actDetail().start();
+                        OperationPromptTool.showMsg(actDetailActivity.this, "取消报名成功！");
+                    }
+                });
             } else if (!ifSignFlag) {
                 // 报名
                 ifSignFlag = !ifSignFlag;

@@ -27,6 +27,7 @@ import java.io.IOException;
 
 // 相机、相册工具类
 public class CameraUtils {
+    public static final int SELECT_PHOTO = 2;
 
     /**
      * 相机Intent

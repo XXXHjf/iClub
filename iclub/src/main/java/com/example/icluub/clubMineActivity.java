@@ -26,7 +26,7 @@ import Beans.BeanUser;
 import tools.StatusTool;
 import RecyclerViewHolder.ClubViewHolder;
 import util.DBUtil;
-import util.SPDataUtils;
+import SPTools.userSP;
 
 public class clubMineActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -138,7 +138,7 @@ public class clubMineActivity extends AppCompatActivity implements View.OnClickL
                 conn = DBUtil.getConnection();
                 String sql = "SELECT * FROM club WHERE clubID=(SELECT clubID FROM clubmember WHERE ifPassed=1 AND userID=?)";
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-                BeanUser beanUser = SPDataUtils.getUserInfo(getApplicationContext());
+                BeanUser beanUser = userSP.getUserInfo(getApplicationContext());
                 pst.setString(1, beanUser.getUserID());
                 java.sql.ResultSet rs = pst.executeQuery();
                 while (rs.next()) {

@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.icluub"
-        minSdk = 31
+        minSdk = 28
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -44,7 +44,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation ("io.github.youth5201314:banner:2.2.2")  // banner依赖(成功)
+    // banner轮播图库
+    implementation ("io.github.youth5201314:banner:2.2.2")
 
     // glide图片加载框架
     implementation("com.github.bumptech.glide:glide:4.11.0")
@@ -83,6 +84,11 @@ dependencies {
 
     // 加载动画的依赖(https://github.com/baitutang1221/AVLoadingIndicatorView)
     implementation("com.wang.avi:library:2.1.3")
+
+    // 引入卡片布局
+    implementation("androidx.cardview:cardview:1.0.0")
+    // 引入华为统一扫码服务（Scan Kit）
+    implementation("com.huawei.hms:scan:2.12.0.301")
 
 
 

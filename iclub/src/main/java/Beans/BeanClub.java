@@ -5,10 +5,11 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BeanClub implements Parcelable {
+public class BeanClub implements Parcelable, Serializable {
     private int clubID;
     private String clubName;
     private String userID;

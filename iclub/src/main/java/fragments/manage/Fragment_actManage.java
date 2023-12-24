@@ -1,8 +1,10 @@
 package fragments.manage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +45,15 @@ public class Fragment_actManage extends Fragment implements View.OnClickListener
     private ActManageFragmentListener actListener;
 
     public Fragment_actManage() {
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof ActManageFragmentListener)
+            actListener = (ActManageFragmentListener) context;
+        else
+            throw new ClassCastException(context.toString() + "必须实现OnItemClickListener");
     }
 
     @Override
@@ -100,9 +111,6 @@ public class Fragment_actManage extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.iv_fmAct_addActs) {
-            Intent intent = new Intent(requireContext(), createActActivity.class);
-            startActivity(intent);
-        } else if (view.getId() == R.id.iv_fmAct_addActs) {
             actListener.onAddActClick();
         }
     }

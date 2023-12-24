@@ -3,9 +3,11 @@ package com.example.icluub;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,7 @@ public class actCenterActivity extends AppCompatActivity implements View.OnClick
     private List<String> clubNameList = new ArrayList<>();
     private List<Integer> regNumList = new ArrayList<>();
     private ImageView iv_center_back;
+    private EditText et_center_search;
     private RecyclerView recv_center;
     private ActListAdapter actListAdapter;
 
@@ -53,6 +56,7 @@ public class actCenterActivity extends AppCompatActivity implements View.OnClick
     protected void onStart() {
         super.onStart();
         // 查询所有活动
+        et_center_search.getText().clear();
         new Thread_getSQL_actsList().start();
     }
 
@@ -60,6 +64,7 @@ public class actCenterActivity extends AppCompatActivity implements View.OnClick
     protected void onResume() {
         super.onResume();
         iv_center_back.setOnClickListener(this);
+        findViewById(R.id.button_actCenter_search).setOnClickListener(this);
     }
 
     @Override
@@ -74,6 +79,7 @@ public class actCenterActivity extends AppCompatActivity implements View.OnClick
      * 初始化组件
      */
     private void initViews() {
+        et_center_search = findViewById(R.id.et_center_search);
         iv_center_back = findViewById(R.id.iv_center_back);
         recv_center = findViewById(R.id.recv_center);
         actListAdapter = new ActListAdapter();
@@ -90,6 +96,8 @@ public class actCenterActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View view) {
         if (view.getId() == R.id.iv_center_back) {
             onBackPressed();
+        } else if (view.getId() == R.id.button_actCenter_search) {
+            new Thread_get_searchList().start();
         }
     }
 
@@ -105,6 +113,64 @@ public class actCenterActivity extends AppCompatActivity implements View.OnClick
                 String sql = "SELECT * FROM ClubActivityView WHERE ifPassed=1 ORDER BY closeTime DESC";
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                 java.sql.ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    BeanClubActivity bean = BeanClubActivity.resultSetToActivity(rs);
+                    actList.add(bean);
+                    clubNameList.add(rs.getString(12));
+                    regNumList.add(rs.getInt(13));
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // 通知适配器数据集已更改
+                        actListAdapter.notifyDataSetChanged();
+                    }
+                });
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                DBUtil.close(conn);
+            }
+        }
+    }
+
+    /**
+     * 自定义线程：查询输入关键字后的活动
+     */
+    private class Thread_get_searchList extends Thread {
+        @Override
+        public void run() {
+            Connection conn = null;
+            try {
+                conn = DBUtil.getConnection();
+                String sql = "SELECT * FROM ClubActivityView WHERE ifPassed=1 ";
+
+                String inputText = et_center_search.getText().toString().trim();   // 去除首尾空格
+                String[] keyWords = inputText.split("\\s+");   // 使用正则表达式匹配任意空白字符（包括空格、制表符等）
+                List<String> conditions = new ArrayList<>();
+                // 检查关键词数组是否为空
+                if (keyWords.length > 0 && !keyWords[0].isEmpty()) {
+                    // 处理关键词数组
+                    for (String keyword : keyWords) {
+                        String condition = "actTitle LIKE '%" + keyword + "%'";
+                        conditions.add(condition);
+                    }
+                    if ( !conditions.isEmpty() ) {
+                        String joinedConditions = String.join(" OR ", conditions);
+                        // 在原始 SQL 语句上添加条件
+                        sql += "AND (" + joinedConditions + ") ";
+                    }
+                }else {
+                    // 输入文本为空或只包含空白字符的情况
+                    new Thread_getSQL_actsList().start();
+                    return;
+                }
+                sql += "ORDER BY closeTime DESC";
+                java.sql.PreparedStatement pst = conn.prepareStatement(sql);
+                java.sql.ResultSet rs = pst.executeQuery();
+                actList = new ArrayList<>();
+                clubNameList = new ArrayList<>();
+                regNumList = new ArrayList<>();
                 while (rs.next()) {
                     BeanClubActivity bean = BeanClubActivity.resultSetToActivity(rs);
                     actList.add(bean);

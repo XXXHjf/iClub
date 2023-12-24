@@ -1,10 +1,11 @@
 package Beans;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 
-public class BeanUser {
+public class BeanUser implements Serializable {
     private String userID;
     private String userName;
     private String password;

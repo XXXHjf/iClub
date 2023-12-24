@@ -84,17 +84,23 @@
 
         <EditText
             android:id="@+id/et_center_search"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:hint="输入关键字"
-            android:textSize="18sp"
             android:layout_marginLeft="3dp"
+            android:background="@color/white"
+            android:gravity="left"
+            android:hint="输入活动名关键字"
+            android:singleLine="true"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/view_center_search"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toRightOf="@id/iv_center_searchIcon"
+            app:layout_constraintRight_toLeftOf="@id/button_actCenter_search"
             app:layout_constraintTop_toTopOf="@id/view_center_search"
-            app:layout_constraintBottom_toBottomOf="@id/view_center_search" />
+            app:layout_constraintVertical_bias="0.444" />
 
         <Button
+            android:id="@+id/button_actCenter_search"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:text="搜索"

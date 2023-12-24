@@ -7,16 +7,17 @@
     android:gravity="center">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
         android:paddingTop="12dp">
 
         <View
             android:id="@+id/view_actManage_background"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/res_home_white_view_radius"
+            app:layout_constraintWidth_percent="0.95"
             app:layout_constraintBottom_toBottomOf="@id/space_actManage_spaceBottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

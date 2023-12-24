@@ -3,11 +3,15 @@ package tools;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * sharepref工具类
- */
 public class SPUtils {
     private static final String NAME="config";
+
+    public static void clear(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(NAME,  Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        editor.commit();
+    }
     public static void putBoolean(String key, boolean value, Context context) {
         SharedPreferences sp = context.getSharedPreferences(NAME,
                 Context.MODE_PRIVATE);

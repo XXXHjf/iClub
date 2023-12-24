@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_createActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/theme_green"
     android:fitsSystemWindows="true"
     tools:context=".createActActivity">
 
@@ -20,7 +21,7 @@
     <Space
         android:id="@+id/space_createAct_blockTop"
         android:layout_width="match_parent"
-        android:layout_height="15dp"
+        android:layout_height="2dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -58,7 +59,6 @@
         android:id="@+id/sv_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingBottom="15dp"
         android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@id/button_createAct_apply"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -90,8 +90,9 @@
                 app:layout_constraintTop_toTopOf="@id/view_createAct_actNme" />
 
             <EditText
-                android:id="@+id/tv_createAct_actNme"
-                android:layout_width="wrap_content"
+                android:id="@+id/ev_createAct_actNme"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:gravity="right"
@@ -104,6 +105,14 @@
                 app:layout_constraintLeft_toLeftOf="@id/view_createAct_actNme"
                 app:layout_constraintRight_toRightOf="@id/view_createAct_actNme"
                 app:layout_constraintTop_toTopOf="@id/view_createAct_actNme" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_actNme"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_clubName" />
 
             <!--    申请社团-->
             <View
@@ -132,7 +141,7 @@
                 android:gravity="right"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:text="某某某某某某社团"
+                android:text=""
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/view_createAct_clubName"
                 app:layout_constraintHorizontal_bias="0.96"
@@ -142,10 +151,54 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/home_background"
-                app:layout_constraintBottom_toTopOf="@id/view_createAct_clubName"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_actNme" />
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_clubName"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_belongCollege" />
+
+            <!--    所属社团-->
+            <View
+                android:id="@+id/view_createAct_belongCollege"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_clubName" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="社团所在学院："
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_createAct_belongCollege"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintLeft_toLeftOf="@id/view_createAct_belongCollege"
+                app:layout_constraintRight_toRightOf="@id/view_createAct_belongCollege"
+                app:layout_constraintTop_toTopOf="@id/view_createAct_belongCollege" />
+
+            <TextView
+                android:id="@+id/tv_createAct_belongCollege"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="right"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:text=""
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@id/view_createAct_belongCollege"
+                app:layout_constraintHorizontal_bias="0.96"
+                app:layout_constraintLeft_toLeftOf="@id/view_createAct_belongCollege"
+                app:layout_constraintRight_toRightOf="@id/view_createAct_belongCollege"
+                app:layout_constraintTop_toTopOf="@id/view_createAct_belongCollege" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_belongCollege"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_applyPrsn" />
 
             <!--    申办人-->
             <View
@@ -153,7 +206,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_clubName" />
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_belongCollege" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -166,19 +219,6 @@
                 app:layout_constraintRight_toRightOf="@id/view_createAct_applyPrsn"
                 app:layout_constraintTop_toTopOf="@id/view_createAct_applyPrsn" />
 
-            <!--    <Spinner-->
-            <!--        android:id="@+id/spinner_college"-->
-            <!--        android:layout_width="190dp"-->
-            <!--        android:layout_height="wrap_content"-->
-            <!--        android:textAlignment="viewEnd"-->
-            <!--        android:paddingRight="0dp"-->
-            <!--        android:entries="@array/college"-->
-            <!--        app:layout_constraintTop_toTopOf="@id/view_createAct_applyPrsn"-->
-            <!--        app:layout_constraintBottom_toBottomOf="@id/view_createAct_applyPrsn"-->
-            <!--        app:layout_constraintLeft_toLeftOf="@id/view_createAct_applyPrsn"-->
-            <!--        app:layout_constraintRight_toRightOf="@id/view_createAct_applyPrsn"-->
-            <!--        app:layout_constraintHorizontal_bias="0.96" />-->
-
             <TextView
                 android:id="@+id/tv_createAct_applyPerson"
                 android:layout_width="wrap_content"
@@ -187,7 +227,7 @@
                 android:gravity="right"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:text="胡纪福"
+                android:text=""
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/view_createAct_applyPrsn"
                 app:layout_constraintHorizontal_bias="0.96"
@@ -197,10 +237,11 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/home_background"
-                app:layout_constraintBottom_toTopOf="@id/view_createAct_applyPrsn"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_clubName" />
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_applyPrsn"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_actStartTime" />
 
             <!--    活动开始时间-->
             <View
@@ -223,12 +264,12 @@
 
             <TextView
                 android:id="@+id/tv_createAct_actStartTime"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:background="@color/white"
                 android:singleLine="true"
-                android:text="2023-01-01"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/view_createAct_actStartTime"
                 app:layout_constraintHorizontal_bias="0.96"
@@ -238,11 +279,11 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/home_background"
-                app:layout_constraintBottom_toTopOf="@id/view_createAct_actStartTime"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_applyPrsn" />
-
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_actStartTime"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_actEndTime" />
 
             <!--活动结束时间-->
             <View
@@ -250,7 +291,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_actStartTime" />
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_actStartTime"
+                tools:layout_editor_absoluteX="0dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -265,11 +307,11 @@
 
             <TextView
                 android:id="@+id/tv_createAct_actEndTime"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:singleLine="true"
-                android:text="2023-01-02"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/view_createAct_actEndTime"
                 app:layout_constraintHorizontal_bias="0.96"
@@ -279,10 +321,11 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/home_background"
-                app:layout_constraintBottom_toTopOf="@id/view_createAct_actEndTime"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_actStartTime" />
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_actEndTime"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_applyCloseTime" />
 
             <!--  报名截止日期-->
             <View
@@ -295,7 +338,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="报名截止日期："
+                android:text="报名截止时间："
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/view_createAct_applyCloseTime"
                 app:layout_constraintHorizontal_bias="0.04"
@@ -319,10 +362,11 @@
 
             <TextView
                 android:id="@+id/tv_createAct_applyEndTime"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="2023-01-01"
+                android:gravity="right"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@id/view_createAct_applyCloseTime"
                 app:layout_constraintHorizontal_bias="0.96"
@@ -332,10 +376,11 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/home_background"
-                app:layout_constraintBottom_toTopOf="@id/view_createAct_applyCloseTime"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_actEndTime" />
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_applyCloseTime"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_actPlace" />
 
             <!--    活动地点-->
             <View
@@ -358,7 +403,8 @@
 
             <EditText
                 android:id="@+id/et_createAct_actPlace"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:gravity="right"
@@ -372,10 +418,11 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/home_background"
-                app:layout_constraintBottom_toTopOf="@id/view_createAct_actPlace"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_applyCloseTime" />
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_actPlace"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_maxNum" />
 
             <!--    报名人数上限-->
             <View
@@ -397,8 +444,9 @@
                 app:layout_constraintTop_toTopOf="@id/view_createAct_maxNum" />
 
             <EditText
-                android:id="@+id/tv_createAct_maxNum"
-                android:layout_width="wrap_content"
+                android:id="@+id/ev_createAct_maxNum"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:selectAllOnFocus="true"
@@ -415,25 +463,28 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/home_background"
-                app:layout_constraintBottom_toTopOf="@id/view_createAct_maxNum"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_actPlace" />
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_maxNum"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_cover" />
 
             <!--    活动封面-->
+
             <View
                 android:id="@+id/view_createAct_cover"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="0dp"
                 android:background="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_maxNum" />
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_maxNum"
+                app:layout_constraintBottom_toBottomOf="@id/iv_createAct_addCover"/>
 
             <TextView
                 android:id="@+id/tv_createAct_cover"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
-                android:text="活动封面："
+                android:text="活动封面：(建议16:9)"
                 android:textSize="18sp"
                 app:layout_constraintHorizontal_bias="0.04"
                 app:layout_constraintLeft_toLeftOf="@id/view_createAct_cover"
@@ -442,11 +493,13 @@
 
             <ImageView
                 android:id="@+id/iv_createAct_addCover"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="15dp"
                 android:adjustViewBounds="true"
                 android:maxWidth="130dp"
+                android:scaleType="centerCrop"
                 android:src="@drawable/image_add_picture"
                 app:layout_constraintLeft_toLeftOf="@id/view_createAct_cover"
                 app:layout_constraintRight_toRightOf="@id/view_createAct_cover"
@@ -454,10 +507,11 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/home_background"
-                app:layout_constraintBottom_toTopOf="@id/view_createAct_cover"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_maxNum" />
+                android:layout_height="1dp"
+                android:background="@color/lineColor_grey"
+                android:elevation="1dp"
+                app:layout_constraintTop_toBottomOf="@id/view_createAct_cover"
+                app:layout_constraintBottom_toTopOf="@id/view_createAct_content" />
 
             <!--  活动内容-->
             <View
@@ -489,7 +543,8 @@
                 android:background="@drawable/res_radius_act_content"
                 android:gravity="start"
                 android:hint="请输入内容"
-                android:lines="10"
+                android:minLines="20"
+                android:maxLines="200"
                 android:padding="5dp"
                 android:textColor="@color/textColor_actInfo"
                 android:textSize="14sp"
@@ -497,18 +552,27 @@
                 app:layout_constraintRight_toRightOf="@id/view_createAct_content"
                 app:layout_constraintTop_toBottomOf="@id/tv_createAct_contentHint" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/home_background"
-                app:layout_constraintBottom_toTopOf="@id/view_createAct_content"
-                app:layout_constraintTop_toBottomOf="@id/view_createAct_cover" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_createAct_content" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
     <!--    保存修改-->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sv_main"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <Button
         android:id="@+id/button_createAct_apply"
         android:layout_width="0dp"
@@ -521,6 +585,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:layout_marginBottom="13dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/sv_main"
         app:layout_constraintLeft_toLeftOf="parent"

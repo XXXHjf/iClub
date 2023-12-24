@@ -11,15 +11,66 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+<!--        <TextView-->
+<!--            android:id="@+id/tv_fmMember_listHint"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textSize="18sp"-->
+<!--            android:text="成员列表"-->
+<!--            android:layout_marginLeft="15dp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"/>-->
+
+        <View
+            android:id="@+id/view_approveBack"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/res_radius_sign_end"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.3"
+            app:layout_constraintTop_toTopOf="@id/tv_clubMember_approveHint"
+            app:layout_constraintBottom_toBottomOf="@id/tv_clubMember_unapprovedHint" />
+
         <TextView
-            android:id="@+id/tv_fmMember_listHint"
+            android:id="@+id/tv_clubMember_approveHint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:text="成员列表"
-            android:layout_marginLeft="15dp"
+            android:text="入社申请"
+            android:paddingTop="5dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="@id/view_approveBack"
+            app:layout_constraintRight_toRightOf="@id/view_approveBack"/>
+
+        <TextView
+            android:id="@+id/tv_clubMember_unapprovedHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="未审批:"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintLeft_toLeftOf="@id/tv_clubMember_approveHint"
+            app:layout_constraintRight_toLeftOf="@id/tv_clubMember_unapproved"
+            app:layout_constraintTop_toBottomOf="@id/tv_clubMember_approveHint"/>
+
+        <TextView
+            android:id="@+id/tv_clubMember_unapproved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            app:layout_constraintLeft_toRightOf="@id/tv_clubMember_unapprovedHint"
+            app:layout_constraintRight_toRightOf="@id/tv_clubMember_approveHint"
+            app:layout_constraintTop_toTopOf="@id/tv_clubMember_unapprovedHint"
+            app:layout_constraintBottom_toBottomOf="@id/tv_clubMember_unapprovedHint"/>
+
+        <Space
+            android:id="@+id/space_clubMember_topOfRcyView"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_clubMember_unapprovedHint"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recv_memberList"
@@ -28,11 +79,10 @@
             android:background="@color/home_background"
             android:clipToPadding="false"
             android:paddingBottom="12dp"
-            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_fmMember_listHint" />
+            app:layout_constraintTop_toBottomOf="@id/space_clubMember_topOfRcyView" />
 
 
 

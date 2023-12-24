@@ -19,7 +19,8 @@ import java.sql.SQLException;
 import Beans.BeanUser;
 import tools.StatusTool;
 import util.DBUtil;
-import util.SPDataUtils;
+import SPTools.LoginStatusSP;
+import SPTools.userSP;
 
 public class loginActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText ev_login_account;
@@ -102,8 +103,9 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                         java.sql.ResultSet rs = pst.executeQuery();
                         if (rs.next()) {
                             beanUser = BeanUser.resultSetToUser(rs);
-                            SPDataUtils.saveUserLoginInfo(getApplicationContext(), beanUser);
-                            SPDataUtils.updateRmb_Auto(getApplicationContext(), cb_remember_pwd.isChecked(), cb_auto_login.isChecked());
+                            userSP.saveUserLoginInfo(getApplicationContext(), beanUser);
+                            userSP.updateRmb_Auto(getApplicationContext(), cb_remember_pwd.isChecked(), cb_auto_login.isChecked());
+                            LoginStatusSP.setHasLogin(loginActivity.this, true);
                             Intent intent = new Intent(loginActivity.this, homeActivity.class);
                             // 清除任务栈并创建一个新的任务栈
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
