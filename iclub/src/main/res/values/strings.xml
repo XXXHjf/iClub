@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">爱社团</string>
     <string name="school_name_appName">浙大城市学院i社团</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -13,20 +13,6 @@
         android:layout_height="match_parent"
         android:background="@color/home_background">
 
-        <com.wang.avi.AVLoadingIndicatorView
-            android:id="@+id/avi"
-            style="@style/AVLoadingIndicatorView.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_centerHorizontal="true"
-            app:indicatorColor="#C493D2F3"
-            app:indicatorName="LineScaleIndicator"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
         <View
             android:id="@+id/view_actDetail_topBackGround"
             android:layout_width="0dp"

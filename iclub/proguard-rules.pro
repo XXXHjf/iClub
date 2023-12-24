@@ -33,3 +33,5 @@
 -keepattributes SourceFile,LineNumberTable
 -keep class com.hianalytics.android.**{*;}
 -keep class com.huawei.**{*;}
+
+-keep class org.xmlpull.v1.XmlPullParser

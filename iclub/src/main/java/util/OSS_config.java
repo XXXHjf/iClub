@@ -11,7 +11,6 @@ public class OSS_config {
     public static final String TEP_ACCESS_KEY_ID = "STS.NUW2NjdQg3hic4eE2VUmJ6nEh";
     public static final String TRP_ACCESS_KEY_SECRET = "B44ZJPhDxZhrVoMtmVotxapJYV3LLsmNEWh65yjgVaX3";
     public static final String TEP_ACCESS_STS_TOKEN = "CAIS+QF1q6Ft5B2yfSjIr5biefTeiY5GhKqCYRLUoTIDWeJm2avuijz2IHhMfnBhAuwXsv0xnGtZ6vgYlqR8RoNifnf/UfBM449LqYV0z3ht4p7b16cNrbH4M0rxYkeJ8a2/SuH9S8ynCZXJQlvYlyh17KLnfDG5JTKMOoGIjpgVBbZ+HHPPD1x8CcxROxFppeIDKHLVLozNCBPxhXfKB0ca0WgVy0EHsPnlmZLNtUCD1QyrkLdF+L6ceMb0M5NeW75kSMqw0eBMca7M7TVd8RAi9t0t1PQeoGac4oDBWgcJuETabbDOl9JiMAhifbMmALJJt+TsakG4XS8HJe4agAEU8DDLYmO5rJwGnyvvDTNO8zue3wjAdRjSfUbzaX0IZJ9mMYidZUNKP8wSRBxZRvQ8ckVAjCwUJOH2R04neM4A13JRC191XRfuAsLNl4bkZ+37UR5V0nS29uOVtV0N+vkpr0fyvi1pZ2IkMheUStUkZnea61nPCkssLU7QbPPW3yAA";
-
     public static final int DOWNLOAD_SUC = 1;
     public static final int DOWNLOAD_Fail = 2;
     public static final int UPLOAD_SUC = 3;

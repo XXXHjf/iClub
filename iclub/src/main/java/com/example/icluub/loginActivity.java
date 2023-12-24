@@ -131,7 +131,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
             }).start();
         }
         else if (view.getId() == R.id.iv_login_eyeSelector) {
-            if (ifPwdVisible == true) {
+            if (ifPwdVisible) {
                 ifPwdVisible = false;
                 iv_login_eyeSelector.setSelected(false);
                 ev_login_password.setTransformationMethod(PasswordTransformationMethod.getInstance());

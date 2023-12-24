@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -44,7 +43,6 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
     private ImageView iv_actDetail_back;
     private BeanUser beanUser = null;
     private boolean ifSignFlag = false;
-    private AVLoadingIndicatorView avi;
     private boolean ifManage = false;
 
     @Override
@@ -165,7 +163,6 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
         tv_actDetail_actContent = findViewById(R.id.tv_actDetail_actContent);
         button_signUp = findViewById(R.id.button_signUp);
         iv_actDetail_back = findViewById(R.id.iv_actDetail_back);
-        avi = findViewById(R.id.avi);
     }
 
     @Override

@@ -151,8 +151,8 @@ public class memberApplyActivity extends AppCompatActivity implements View.OnCli
     }
 
     private class Thread_post_passApply extends Thread {
-        private String userID;
-        private int position;
+        private final String userID;
+        private final int position;
         private Thread_post_passApply(String userID, int position) {
             this.userID = userID;
             this.position = position;
@@ -196,8 +196,8 @@ public class memberApplyActivity extends AppCompatActivity implements View.OnCli
 
 
     private class Thread_post_unPassApply extends Thread {
-        private String userID;
-        private int position;
+        private final String userID;
+        private final int position;
         private Thread_post_unPassApply(String userID, int position) {
             this.userID = userID;
             this.position = position;

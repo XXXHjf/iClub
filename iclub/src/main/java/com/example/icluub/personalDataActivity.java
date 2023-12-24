@@ -114,7 +114,7 @@ public class personalDataActivity extends AppCompatActivity implements View.OnCl
     }
 
     @SuppressLint("HandlerLeak")
-    private Handler handler = new Handler(){
+    private final Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             Bundle bundleCode = new Bundle();

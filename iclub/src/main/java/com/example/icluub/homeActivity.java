@@ -58,7 +58,7 @@ public class homeActivity extends AppCompatActivity {
         if ( !sp.contains("hasCameraNotice") ) {
             editor.putBoolean("hasCameraNotice", false);
             Boolean hasCameraNotice = sp.getBoolean("hasCameraNotice", false);
-            if(hasCameraNotice == false) {
+            if(!hasCameraNotice) {
                 // 权限请求
                 rxPermissions
                         .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)

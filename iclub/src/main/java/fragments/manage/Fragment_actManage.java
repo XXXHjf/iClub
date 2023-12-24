@@ -53,7 +53,7 @@ public class Fragment_actManage extends Fragment implements View.OnClickListener
         if (context instanceof ActManageFragmentListener)
             actListener = (ActManageFragmentListener) context;
         else
-            throw new ClassCastException(context.toString() + "必须实现OnItemClickListener");
+            throw new ClassCastException(context + "必须实现OnItemClickListener");
     }
 
     @Override

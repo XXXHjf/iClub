@@ -23,6 +23,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
+
     }
     packagingOptions {
         exclude("META-INF/kotlinx_coroutines_core.version")
@@ -78,21 +79,8 @@ dependencies {
 
     // recyclerview库
     implementation("androidx.recyclerview:recyclerview:1.2.1")
-
     // 时间选择器
     implementation("com.github.loper7:DateTimePicker:0.6.3")
-
-    // 加载动画的依赖(https://github.com/baitutang1221/AVLoadingIndicatorView)
-    implementation("com.wang.avi:library:2.1.3")
-
-    // 引入卡片布局
-    implementation("androidx.cardview:cardview:1.0.0")
     // 引入华为统一扫码服务（Scan Kit）
     implementation("com.huawei.hms:scan:2.12.0.301")
-
-
-
-
-
-
 }
