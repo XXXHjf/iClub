@@ -135,6 +135,8 @@ public class createActActivity extends AppCompatActivity implements View.OnClick
                     ev_createAct_maxNum.getText().toString().isEmpty() || et_createAct_actPlace.getText().toString().isEmpty() ||
                     imagePath == null) {
                 SnackEasyMsg(root_createActivity, "请补全活动信息");
+            } else if ( Integer.parseInt(ev_createAct_maxNum.getText().toString()) > 1000) {
+                SnackEasyMsg(root_createActivity, "活动人数最大为1000！");
             } else {
                 OperationPromptTool.showConfirmDialog(createActActivity.this, "您确定申请创办此活动吗？\n(申请后不可撤销、内容不可修改)", new Runnable() {
                     @Override
@@ -281,6 +283,9 @@ public class createActActivity extends AppCompatActivity implements View.OnClick
         public void run() {
             Connection conn = null;
             try {
+                // 用当前的时间戳作为上传的照片的名字上传到OSS里，数据库对应位置存储图片的下载路径
+                String fileName = System.currentTimeMillis() + "." + CameraUtils.getImageType(imagePath);
+
                 conn = DBUtil.getConnection();
                 String sql = "INSERT INTO ClubActivity (clubID, actTitle, actDescription, actCover, actLocation, maxNum, startTime, endTime, closeTime) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -288,7 +293,7 @@ public class createActActivity extends AppCompatActivity implements View.OnClick
                 pst.setInt(1, beanClub.getClubID());
                 pst.setString(2, ev_createAct_actNme.getText().toString());
                 pst.setString(3, et_createAct_content.getText().toString());
-                pst.setString(4, imagePath);
+                pst.setString(4, OSSUpload.getActCoverPrefix() + fileName);
                 pst.setString(5, et_createAct_actPlace.getText().toString());
                 pst.setInt(6, Integer.parseInt(ev_createAct_maxNum.getText().toString()));
                 pst.setTimestamp(7, StringToTimestamp(tv_createAct_actStartTime.getText().toString()));
@@ -296,14 +301,14 @@ public class createActActivity extends AppCompatActivity implements View.OnClick
                 pst.setTimestamp(9, StringToTimestamp(tv_createAct_applyEndTime.getText().toString()));
                 int rs = pst.executeUpdate();
                 if (rs == 1) {
-                    new Thread_uploadOSS().start();
+                    OSSUpload.uploadOSS(createActActivity.this, "actCover/" + fileName, imagePath);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             showMsg(createActActivity.this, "申请成功!");
+                            onBackPressed();
                         }
                     });
-                    onBackPressed();
                 } else {
                     runOnUiThread(new Runnable() {
                         @Override

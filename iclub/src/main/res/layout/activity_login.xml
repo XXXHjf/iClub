@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/theme_green"
     android:fitsSystemWindows="true"
+    android:id="@+id/rootView_login"
     tools:context=".loginActivity">
 
     <ImageView

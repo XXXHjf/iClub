@@ -1,6 +1,7 @@
 package com.example.icluub;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,12 +18,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import Beans.BeanUser;
+import tools.OperationPromptTool;
 import tools.StatusTool;
 import util.DBUtil;
 import SPTools.LoginStatusSP;
 import SPTools.userSP;
 
 public class loginActivity extends AppCompatActivity implements View.OnClickListener {
+    private ConstraintLayout rootView_login;
     private EditText ev_login_account;
     private EditText ev_login_password;
     private ImageView iv_login_eyeSelector;
@@ -70,6 +73,7 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
      * 封装所有初始化控件的操作
      */
     private void initViews() {
+        rootView_login = findViewById(R.id.rootView_login);
         ev_login_account = findViewById(R.id.ev_login_account);
         ev_login_password = findViewById(R.id.ev_login_password);
         cb_auto_login = findViewById(R.id.cb_auto_login);
@@ -110,6 +114,13 @@ public class loginActivity extends AppCompatActivity implements View.OnClickList
                             // 清除任务栈并创建一个新的任务栈
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                             startActivity(intent);
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    OperationPromptTool.SnackEasyMsg(rootView_login, "账号名或密码有误，请重试");
+                                }
+                            });
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
