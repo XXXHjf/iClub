@@ -43,7 +43,7 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
     private ImageView iv_actDetail_back;
     private BeanUser beanUser = null;
     private boolean ifSignFlag = false;
-    private boolean ifManage = false;
+    private boolean ifManage = false;   // 判断是否是管理员界面点击进来的活动详情页(管理界面可以看到未审批通过的活动)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
         // 获得活动中心页面被点击,传递过来的活动的ID
         Bundle bundleActID = getIntent().getExtras();
         actID = bundleActID.getInt("actID");
+        // 判断传递进来的数据有没有ifManage,如果有就代表是社团管理页面点进来的
         if (bundleActID.getBoolean("ifManage"))
             ifManage = bundleActID.getBoolean("ifManage");
 
@@ -99,7 +100,6 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
         tv_actDetail_time.setText(actTime);
         tv_actDetail_location.setText(bean.getActLocation());
 
-
         Timestamp now = new Timestamp(System.currentTimeMillis());
         Timestamp actCloseTime = bean.getCloseTime();
         tv_actDetail_close.setText(TransitionTool.TimestampToString(bean.getCloseTime()));
@@ -136,14 +136,27 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
                 tv_actDetail_notice.setTextColor(0xFFF81803);
                 Drawable drawable = ContextCompat.getDrawable(actDetailActivity.this, R.drawable.res_radius_act_detail_on);
                 button_signUp.setBackground(drawable);
-                button_signUp.setEnabled(true);
-                if (ifSignFlag)
+                if ( ifSignFlag ) {
+                    // 如果已经报名过该活动
                     button_signUp.setText("取消报名");
-                else
-                    button_signUp.setText("立即报名");
+                    button_signUp.setEnabled(true);
+                }
+                else {
+                    // 未报名过
+                    if (regNum >= bean.getMaxNum()) {
+                        // 如果报名人数已满
+                        button_signUp.setText("报名人数已满");
+                        button_signUp.setEnabled(false);
+                    }
+                    else {
+                        // 可以报名
+                        button_signUp.setText("立即报名");
+                        button_signUp.setEnabled(true);
+                    }
+                }
+
             }
         }
-
         tv_actDetail_chargeMan.setText(presidentName);
         tv_actDetail_actContent.setText(bean.getActDescription());
     }
@@ -165,6 +178,10 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
         iv_actDetail_back = findViewById(R.id.iv_actDetail_back);
     }
 
+    /**
+     * 重写点击方法
+     * @param view  视图
+     */
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.button_signUp) {

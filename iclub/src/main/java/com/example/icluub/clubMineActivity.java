@@ -87,7 +87,7 @@ public class clubMineActivity extends AppCompatActivity implements View.OnClickL
     }
 
     /**
-     * 自定义适配器：我加入的社团
+     * 自定义适配器：我加入的社团.
      */
     private class JoinClubAdapter extends RecyclerView.Adapter<ClubViewHolder> {
         @NonNull
@@ -136,7 +136,8 @@ public class clubMineActivity extends AppCompatActivity implements View.OnClickL
             Connection conn = null;
             try {
                 conn = DBUtil.getConnection();
-                String sql = "SELECT * FROM club WHERE clubID=(SELECT clubID FROM clubmember WHERE ifPassed=1 AND userID=?)";
+                String sql = "SELECT * FROM club WHERE clubID in " +
+                        "(SELECT clubID FROM ClubMember WHERE ifPassed=1 AND userID=?)";
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                 BeanUser beanUser = userSP.getUserInfo(getApplicationContext());
                 pst.setString(1, beanUser.getUserID());
