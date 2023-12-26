@@ -44,10 +44,9 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text=""
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/blueTitle"
             app:layout_constraintLeft_toRightOf="@id/iv_actManage_trumpet"
             app:layout_constraintRight_toLeftOf="@id/iv_actManage_cover"
             app:layout_constraintTop_toTopOf="@id/view_actManage_background" />
@@ -70,8 +69,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="活动时间："
+            android:textColor="@color/black"
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@id/view_actManage_background"
             app:layout_constraintTop_toBottomOf="@id/tv_actManage_actName" />
@@ -80,9 +79,8 @@
             android:id="@+id/tv_actManage_timeStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:textColor="@color/black"
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
             app:layout_constraintStart_toEndOf="@id/tv_actManage_time"
             app:layout_constraintTop_toTopOf="@id/tv_actManage_time"
             app:layout_constraintBottom_toBottomOf="@id/tv_actManage_time"/>
@@ -92,8 +90,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" ~"
+            android:textColor="@color/black"
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
             app:layout_constraintStart_toEndOf="@id/tv_actManage_timeStart"
             app:layout_constraintTop_toTopOf="@id/tv_actManage_time"
             app:layout_constraintBottom_toBottomOf="@id/tv_actManage_time"/>
@@ -103,11 +101,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=""
+            android:textColor="@color/black"
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
             app:layout_constraintStart_toStartOf="@id/tv_actManage_timeStart"
             app:layout_constraintTop_toBottomOf="@id/tv_actManage_timeStart"/>
-
 
         <TextView
             android:id="@+id/tv_actManage_signUp"

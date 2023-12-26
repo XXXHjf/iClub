@@ -74,6 +74,11 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
         // 从数据库获取数据
         Thread_getSQL_actDetail threadGetSQLActDetail = new Thread_getSQL_actDetail();
         threadGetSQLActDetail.start();
+        try {
+            threadGetSQLActDetail.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

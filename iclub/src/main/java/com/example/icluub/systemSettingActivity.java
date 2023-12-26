@@ -10,6 +10,7 @@ import SPTools.LoginStatusSP;
 import SPTools.userSP;
 import tools.OperationPromptTool;
 import tools.SPUtils;
+import tools.StatusTool;
 
 public class systemSettingActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -17,6 +18,7 @@ public class systemSettingActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_system_setting);
+        StatusTool.setStatusBar(getWindow());
     }
 
     @Override

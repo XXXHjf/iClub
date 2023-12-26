@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:text="活动列表"
+            android:textColor="@color/black"
             android:layout_marginLeft="15dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"/>

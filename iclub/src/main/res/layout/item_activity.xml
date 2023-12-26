@@ -45,10 +45,9 @@
             android:layout_marginTop="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="活动名称活动"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@color/black"
+            android:textColor="@color/blueTitle"
             app:layout_constraintLeft_toRightOf="@id/iv_activity_trumpet"
             app:layout_constraintRight_toRightOf="@id/view_activity_background"
             app:layout_constraintTop_toTopOf="@id/view_activity_background" />
@@ -73,8 +72,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="举办单位："
+            android:textColor="@color/black"
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
             app:layout_constraintStart_toStartOf="@id/view_activity_background"
             app:layout_constraintTop_toBottomOf="@id/iv_activity_cover" />
 
@@ -84,7 +83,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
+            android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@id/tv_activity_organizer"
             app:layout_constraintTop_toTopOf="@id/tv_activity_organizer"
             app:layout_constraintBottom_toBottomOf="@id/tv_activity_organizer"/>
@@ -97,7 +96,7 @@
             android:layout_marginRight="10dp"
             android:text="活动时间："
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/view_activity_background"
             app:layout_constraintTop_toBottomOf="@id/tv_activity_organizer" />
 
@@ -107,7 +106,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
+            android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@id/tv_activity_time"
             app:layout_constraintTop_toTopOf="@id/tv_activity_time"
             app:layout_constraintBottom_toBottomOf="@id/tv_activity_time"/>
@@ -118,7 +117,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
+            android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@id/tv_activity_timeStart"
             app:layout_constraintTop_toTopOf="@id/tv_activity_time"
             app:layout_constraintBottom_toBottomOf="@id/tv_activity_time"/>
@@ -131,7 +130,7 @@
             android:layout_marginRight="10dp"
             android:text="活动地点："
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@id/view_activity_background"
             app:layout_constraintTop_toBottomOf="@id/tv_activity_time" />
 
@@ -141,7 +140,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:textSize="14sp"
-            android:textColor="@color/textColor_actInfo"
+            android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@id/tv_activity_placeHint"
             app:layout_constraintTop_toTopOf="@id/tv_activity_placeHint"
             app:layout_constraintBottom_toBottomOf="@id/tv_activity_placeHint"/>

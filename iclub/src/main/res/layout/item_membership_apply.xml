@@ -84,7 +84,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="胡纪福"
-            android:textColor="@color/black"
+            android:textColor="@color/blueTitle"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintWidth_percent="0.55"
@@ -101,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="专业班级："
+            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@id/iv_mbrApply_icon"
             app:layout_constraintTop_toBottomOf="@id/iv_mbrApply_icon"/>
@@ -122,6 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="学院："
+            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@id/iv_mbrApply_icon"
             app:layout_constraintTop_toBottomOf="@id/tv_mbrApply_majorHint" />
@@ -143,6 +145,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="联系电话："
+            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@id/iv_mbrApply_icon"
             app:layout_constraintTop_toBottomOf="@id/tv_mbrApply_collegeHint" />
@@ -164,6 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="微信："
+            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@id/iv_mbrApply_icon"
             app:layout_constraintTop_toBottomOf="@id/tv_mbrApply_phoneHint" />
@@ -185,6 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="申请理由："
+            android:textColor="@color/black"
             android:textSize="15sp"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="@id/iv_mbrApply_icon"

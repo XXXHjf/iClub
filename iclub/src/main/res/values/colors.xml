@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!--    纯黑色-->
+<resources>
+    <!--    纯黑色，文本的主要颜色-->
     <color name="black">#FF000000</color>
+    <!--    提示输入的主要颜色-->
+    <color name="blackHint">#FF6C6C6C</color>
+    <!--    深蓝色，标题等等用于加深加亮-->
+    <color name="blueTitle">#FF00096D</color>
     <!--    纯白色-->
     <color name="white">#FFFFFFFF</color>
-    <color name="black_01">#FF101010</color>
     <color name="home_background">#FFEFEFEF</color>
     <!--    分隔小短线的颜色-->
     <color name="lineColor_grey">#44BBBBBB</color>
@@ -18,8 +21,6 @@
     <color name="theme_green">#FFC1DF95</color>
     <!--    login页面账号密码icon的深绿色-->
     <color name="iconColor_account">#B3567722</color>
-    <!--    login页面输入账号、密码的提示词的颜色-->
-    <color name="textColorHint_login">#888888</color>
     <!--    活动中心信息;活动详情业信息字色-->
     <color name="textColor_actInfo">#FF4F4F4F</color>
     <!--    社团管理界面，切换选中时的颜色-->

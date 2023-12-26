@@ -40,6 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="活动详情页"
+            android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -82,10 +83,9 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
-                    android:text=""
+                    android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black"
                     android:textAlignment="center"
                     app:layout_constraintTop_toBottomOf="@id/iv_clubDetails_cover"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -107,8 +107,8 @@
                     android:id="@+id/tv_actDetail_signNumHint"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
                     android:text="已报名："
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
@@ -121,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"
                     android:text=""
-                    android:textColor="@color/textColor_actInfo"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_actDetail_signNumHint"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -141,10 +141,6 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_actDetail_signNumHint"
                     app:layout_constraintWidth_percent="0.95" />
 
-
-
-
-
                 <ImageView
                     android:id="@+id/iv_actDetail_time"
                     android:layout_width="wrap_content"
@@ -161,7 +157,7 @@
                     android:id="@+id/tv_actDetail_timeHint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
+                    android:textColor="@color/black"
                     android:text="活动时间："
                     android:textSize="14sp"
                     app:layout_constraintLeft_toRightOf="@id/iv_actDetail_time"
@@ -172,17 +168,13 @@
                     android:id="@+id/tv_actDetail_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
-                    android:text=""
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_marginRight="15dp"
                     app:layout_constraintLeft_toRightOf="@id/tv_actDetail_timeHint"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/iv_actDetail_time"
                     app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_time" />
-
-
-
 
                 <ImageView
                     android:id="@+id/iv_actDetail_location"
@@ -200,7 +192,7 @@
                     android:id="@+id/tv_actDetail_locationHint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
+                    android:textColor="@color/black"
                     android:text="活动地点："
                     android:textSize="14sp"
                     app:layout_constraintLeft_toRightOf="@id/iv_actDetail_location"
@@ -211,19 +203,13 @@
                     android:id="@+id/tv_actDetail_location"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
-                    android:text=""
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_marginRight="15dp"
                     app:layout_constraintLeft_toRightOf="@id/tv_actDetail_locationHint"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="@id/iv_actDetail_location"
                     app:layout_constraintBottom_toBottomOf="@id/iv_actDetail_location" />
-
-
-
-
-
 
                 <ImageView
                     android:id="@+id/iv_actDetail_close"
@@ -241,7 +227,7 @@
                     android:id="@+id/tv_actDetail_closeHint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
+                    android:textColor="@color/black"
                     android:text="报名截止日期："
                     android:textSize="14sp"
                     app:layout_constraintLeft_toRightOf="@id/iv_actDetail_close"
@@ -252,8 +238,7 @@
                     android:id="@+id/tv_actDetail_close"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
-                    android:text=""
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_marginRight="15dp"
                     app:layout_constraintLeft_toRightOf="@id/tv_actDetail_closeHint"
@@ -288,7 +273,7 @@
                     android:id="@+id/tv_actDetail_chargeManHint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
+                    android:textColor="@color/black"
                     android:text="活动负责人："
                     android:textSize="14sp"
                     app:layout_constraintLeft_toRightOf="@id/iv_actDetail_chargeMan"
@@ -299,8 +284,7 @@
                     android:id="@+id/tv_actDetail_chargeMan"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
-                    android:text=""
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:layout_marginRight="15dp"
                     app:layout_constraintLeft_toRightOf="@id/tv_actDetail_chargeManHint"
@@ -323,7 +307,7 @@
                     android:id="@+id/tv_actDetail_actContentHint"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/textColor_actInfo"
+                    android:textColor="@color/black"
                     android:text="活动介绍："
                     android:textSize="14sp"
                     android:layout_marginLeft="15dp"
@@ -336,8 +320,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/res_radius_act_content"
-                    android:text=""
-                    android:textColor="@color/textColor_actInfo"
+                    android:textColor="@color/black"
                     android:textSize="14sp"
                     android:padding="5dp"
                     android:layout_marginTop="5dp"
