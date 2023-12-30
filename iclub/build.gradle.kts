@@ -30,6 +30,8 @@ android {
         exclude("META-INF/DEPENDENCIES")
         exclude("mozilla/public-suffix-list.txt")
         exclude("project.properties")
+        exclude("META-INF/LICENSE.md")
+        exclude("META-INF/NOTICE.md")
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -62,12 +64,12 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxjava:3.1.8")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
 
-    implementation("androidx.core:core-ktx:1.7.0")
+    implementation("androidx.core:core-ktx:1.9.0")
 
     // 阿里云OSS的依赖项
-    implementation("com.aliyun.dpa:oss-android-sdk:2.9.13")
+    implementation("com.aliyun.dpa:oss-android-sdk:2.9.18")
     // 阿里云core核心库
-    implementation("com.aliyun:aliyun-java-sdk-core:4.5.18")
+    implementation("com.aliyun:aliyun-java-sdk-core:4.6.4")
     implementation("com.aliyun:aliyun-java-sdk-sts:3.1.2")
     // 引入STS SDK
     // https://mvnrepository.com/artifact/com.aliyun/aliyun-java-sdk-sts
@@ -78,9 +80,18 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     // recyclerview库
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
     // 时间选择器
     implementation("com.github.loper7:DateTimePicker:0.6.3")
     // 引入华为统一扫码服务（Scan Kit）
     implementation("com.huawei.hms:scan:2.12.0.301")
+
+//    // OkHttp的核心库
+//    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+//    // OkHttpUtils库
+//    implementation("com.zhy:okhttputils:2.6.2")
+//    implementation("com.github.xuexiangjys.XUtil:xutil-core:2.0.01")
+//
+//    // 引入XUpdate更新框架
+//    implementation("com.github.xuexiangjys:XUpdate:2.1.4")
 }

@@ -8,6 +8,10 @@
     <color name="blueTitle">#FF00096D</color>
     <!--    纯白色-->
     <color name="white">#FFFFFFFF</color>
+    <!--    搜索按钮、搜索图标的填充颜色-->
+    <color name="blue_search_button">#FF4095E5</color>
+    <!--    搜索输入框底部的描边颜色-->
+    <color name="blue_search_stroke">#FF0F40F5</color>
     <color name="home_background">#FFEFEFEF</color>
     <!--    分隔小短线的颜色-->
     <color name="lineColor_grey">#44BBBBBB</color>

@@ -3,7 +3,5 @@
     <!--    圆角的大小-->
     <corners android:radius="30dp"/>
     <!--    填充的颜色-->
-    <solid android:color="#FFFF00"/>
-    <!--    描边的大小和颜色-->
-    <stroke android:width="2dp" android:color="#BBBBBB"/>
+    <solid android:color="@color/blue_search_button"/>
 </shape>

@@ -3,6 +3,7 @@ package fragments.manage;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,10 +82,6 @@ public class Fragment_memberManage extends Fragment implements View.OnClickListe
     @Override
     public void onStop() {
         super.onStop();
-        passedUserList = new ArrayList<>();
-        unPassedUserList = new ArrayList<>();
-        weChatList = new ArrayList<>();
-        reasonList = new ArrayList<>();
     }
 
     /**
@@ -126,8 +123,14 @@ public class Fragment_memberManage extends Fragment implements View.OnClickListe
      * 自定义线程：查询所有成员，并分类为社团成员、为审批的入社申请学生
      */
     private class Thread_getAllMember extends Thread {
+
         @Override
         public void run() {
+            // 先清空原来的数据
+            passedUserList = new ArrayList<>();
+            unPassedUserList = new ArrayList<>();
+            weChatList = new ArrayList<>();
+            reasonList = new ArrayList<>();
             Connection conn = null;
             try {
                 conn = DBUtil.getConnection();
@@ -199,10 +202,17 @@ public class Fragment_memberManage extends Fragment implements View.OnClickListe
         public void onBindViewHolder(@NonNull MemberViewHolder holder, int position) {
             final BeanUser bean = passedUserList.get(position);
 
+            // 先将视图恢复为非社长的状态，确保正确重用
+            holder.tv_clubMember_me.setVisibility(View.GONE);
+            holder.tv_clubMember_roleName.setText(""); // 清空角色名称
+
             if (bean.getUserID().equals(presidentID)) {
                 holder.line_top.setVisibility(View.VISIBLE);
                 holder.tv_clubMember_me.setVisibility(View.VISIBLE);
+                holder.tv_clubMember_me.setVisibility(View.VISIBLE);
                 holder.tv_clubMember_roleName.setText("社长");
+            } else {
+                holder.tv_clubMember_roleName.setText("社员");
             }
             holder.tv_clubMember_name.setText(bean.getUserName());
             Glide.with(requireContext())

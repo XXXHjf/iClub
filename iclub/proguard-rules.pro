@@ -35,3 +35,6 @@
 -keep class com.huawei.**{*;}
 
 -keep class org.xmlpull.v1.XmlPullParser
+
+#XUpdate的混淆配置
+-keep class com.xuexiang.xupdate.entity.** { *; }

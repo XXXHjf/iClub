@@ -2,6 +2,7 @@ package com.example.icluub;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,8 +50,8 @@ public class clubDetailsActivity extends AppCompatActivity implements View.OnCli
     private ImageView iv_clubDetails_presidentIcon;
     private TextView tv_clubDetails_presidentName;
     private RecyclerView rv_clubDetail_acts;
-    private List<BeanClubActivity> beanActList;
-    private List<Integer> regNumList;
+    private List<BeanClubActivity> beanActList = new ArrayList<>();
+    private List<Integer> regNumList = new ArrayList<>();
     private ActListAdapter adapter;
     private int clubID = 0;
     private int ifJoin = -1;
@@ -90,8 +91,6 @@ public class clubDetailsActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onStop() {
         super.onStop();
-        beanActList = new ArrayList<>();
-        regNumList = new ArrayList<>();
     }
 
     /**
@@ -170,6 +169,7 @@ public class clubDetailsActivity extends AppCompatActivity implements View.OnCli
                 pst.setInt(1, clubID);
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
+                    beanClub = new BeanClub();
                     beanClub = BeanClub.resultSetToClub(rs);
                     presidentName = rs.getString(7);
                     presidentAvatar = rs.getString(8);
@@ -202,6 +202,8 @@ public class clubDetailsActivity extends AppCompatActivity implements View.OnCli
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                 pst.setInt(1, clubID);
                 java.sql.ResultSet rs = pst.executeQuery();
+                beanActList = new ArrayList<>();
+                regNumList = new ArrayList<>();
                 while (rs.next()) {
                     BeanClubActivity bean = BeanClubActivity.resultSetToActivity(rs);
                     beanActList.add(bean);
@@ -221,6 +223,12 @@ public class clubDetailsActivity extends AppCompatActivity implements View.OnCli
             }
         }
     }
+
+
+
+
+
+
 
 
     /**

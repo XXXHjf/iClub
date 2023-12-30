@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +30,6 @@ import RecyclerViewHolder.ClubViewHolder;
 import util.DBUtil;
 
 public class clubListActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button button_clubList_search;
     private EditText et_clubList_search;
     private ImageView iv_clubList_back;
     private RecyclerView recv_clubList;
@@ -59,12 +59,6 @@ public class clubListActivity extends AppCompatActivity implements View.OnClickL
         super.onResume();
         iv_clubList_back.setOnClickListener(this);
         findViewById(R.id.button_clubList_search).setOnClickListener(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        clubList = new ArrayList<>();
     }
 
     /**
@@ -146,6 +140,7 @@ public class clubListActivity extends AppCompatActivity implements View.OnClickL
                 String sql = "select * from club";
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                 java.sql.ResultSet rs = pst.executeQuery();
+                clubList = new ArrayList<>();
                 while (rs.next()) {
                     BeanClub beanClub = BeanClub.resultSetToClub(rs);
                     clubList.add(beanClub);
@@ -165,6 +160,7 @@ public class clubListActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    
     /**
      * 自定义线程；获取搜索的关键字的社团
      */

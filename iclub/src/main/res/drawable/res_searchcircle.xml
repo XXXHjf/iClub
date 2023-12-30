@@ -5,5 +5,5 @@
 <!--    填充的颜色-->
     <solid android:color="#ffffff"/>
 <!--    描边的大小和颜色-->
-    <stroke android:width="2dp" android:color="#BBBBBB"/>
+    <stroke android:width="2dp" android:color="@color/blue_search_stroke"/>
 </shape>
