@@ -344,7 +344,7 @@
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             android:background="@drawable/res_radius_act_detail_on"
-            android:text="立即报名"
+            android:text="加载错误"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_marginBottom="13dp"

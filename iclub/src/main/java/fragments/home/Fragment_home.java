@@ -203,13 +203,15 @@ public class Fragment_home extends Fragment implements View.OnClickListener, OnB
             Connection conn = null;
             try {
                 conn = DBUtil.getConnection();
-                String sql = "SELECT * FROM ClubActivityView AS t1 " +
-                        "WHERE t1.ifPassed = 1 " +
-                        "  AND t1.actID >= (" +
-                        "    SELECT ROUND(RAND() * ((SELECT MAX(actID) FROM ClubActivityView) - (SELECT MIN(actID) FROM ClubActivityView)) " +
-                        "+ (SELECT MIN(actID) FROM ClubActivityView)) AS actID " +
-                        "  ) " +
-                        "ORDER BY t1.actID " +
+                String sql = "SELECT * FROM ClubActivityView AS t1 \n" +
+                        "WHERE t1.ifPassed = 1\n" +
+                        "    AND t1.actID >= (\n" +
+                        "        SELECT ROUND(RAND() * (\n" +
+                        "            (SELECT MAX(actID) FROM ClubActivityView) - (SELECT MIN(actID) FROM ClubActivityView)\n" +
+                        "        ) + (SELECT MIN(actID) FROM ClubActivityView)) AS actID\n" +
+                        "    )\n" +
+                        "    AND t1.endTime > NOW()\n" +
+                        "ORDER BY t1.actID \n" +
                         "LIMIT 1";
                 java.sql.PreparedStatement pst = conn.prepareStatement(sql);
                 for ( bannerBeanList.size(); bannerBeanList.size() < 4; ) {

@@ -12,7 +12,7 @@ public class DBUtil {
     private static final String jdbcUrl = "jdbc:mysql://"
             +"hjf-2447129407.rwlb.rds.aliyuncs.com:3306"
             +"/iclub"
-            +"?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8";
+            +"?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&useServerPrepStmts=true";
     private static final String dbUser= "super_admin";
     private static final String dbPwd = "200366Hjf";
 

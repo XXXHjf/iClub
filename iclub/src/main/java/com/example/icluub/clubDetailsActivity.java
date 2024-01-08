@@ -225,12 +225,6 @@ public class clubDetailsActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-
-
-
-
-
-
     /**
      * 自定义线程：查询是否已经加入该社团
      */

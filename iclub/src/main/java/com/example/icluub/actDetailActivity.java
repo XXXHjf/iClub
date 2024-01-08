@@ -66,6 +66,11 @@ public class actDetailActivity extends AppCompatActivity implements View.OnClick
 
         Thread_getSQL_ifSign threadGetSQLIfSign = new Thread_getSQL_ifSign();
         threadGetSQLIfSign.start();
+        try {
+            threadGetSQLIfSign.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
